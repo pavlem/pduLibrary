@@ -38,21 +38,21 @@ class EncoderPDU {
   
   // MARK: - Public 
   func encodeToPDU() -> String {
-    let smscString = smscPart()
-    let tpduStringTuple = tpduPart()
+    let smscString = smscPartEncoded()
+    let tpduStringTuple = tpduPartEncoded()
     let encodedMssg = (tpduStringTuple.tpduLenghtInOctets + smscString + tpduStringTuple.tpduString).uppercaseString
     
     return encodedMssg
   }
   
-  func smscPart() -> String {
+  private func smscPartEncoded() -> String {
     let smsc = SMSC()
     smsc.smscNumber = smscNumber
     let smscString = smsc.encodeSMSCPart()
     return smscString
   }
   
-  func tpduPart() -> (tpduString: String, tpduLenghtInOctets: String) {
+  private func tpduPartEncoded() -> (tpduString: String, tpduLenghtInOctets: String) {
     let tpdu = TPDU()
     tpdu.textMessage = smsMessage
     tpdu.phoneNumber = phoneNumber

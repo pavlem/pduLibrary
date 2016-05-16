@@ -30,4 +30,22 @@ extension SMSC {
     
     return (lenghtSMSCSecondAndThirdField, typeOfPhoneNum, smscNumb)
   }
+  
+  func senderSMSCNumber(number: String, numberType: String) -> String {
+    var smscNumber = number
+    var smscNumberArray = smscNumber.pairs
+    smscNumberArray = switchCharPairsForEachElement(smscNumberArray)
+    smscNumber.removeAll()
+    smscNumber = smscNumberArray.joinWithSeparator("")
+    
+    if smscNumber.characters.last == "F" {
+      smscNumber = smscNumber.substringToIndex(smscNumber.endIndex.predecessor())
+    }
+    
+    if numberType == SMS_NUMB_TYPE.international {
+      smscNumber = "+" + smscNumber
+    }
+    
+    return smscNumber
+  }
 }

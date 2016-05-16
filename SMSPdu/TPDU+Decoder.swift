@@ -16,33 +16,27 @@ extension TPDU {
   func decomposeTPDUPart(tpduPart: String) -> (tpduType: String, mssgRefNumber: String, lenghtOfDestPhoneNum: String, typeOfPhoneNum: String, destPhoneNumber: String, protocolIdentifier: String, dataCodeScheme: String, lenghtSMSBodyInSeptets: String, smsBody: String) {
     
     // The First Sub-field: First Octet of the TPDU
-    
     let tpduS = 0
     let tpduE = tpduS + 1
     let tpduType = tpduPart[tpduS...tpduE]
-    aPrint(tpduType)
     
     // The Second Sub-field: Message Reference Number
     let mssgRefNumberS = tpduE + 1
     let mssgRefNumberE = mssgRefNumberS + 1
     let mssgRefNumber = tpduPart[mssgRefNumberS...mssgRefNumberE]
-    aPrint(mssgRefNumber)
 
     // The Third Sub-field: Length of the Destination Phone Number
     let lenghtOfDestPhoneNumS = mssgRefNumberE + 1
     let lenghtOfDestPhoneNumE = lenghtOfDestPhoneNumS + 1
     let lenghtOfDestPhoneNum = tpduPart[lenghtOfDestPhoneNumS...lenghtOfDestPhoneNumE]
-    aPrint(lenghtOfDestPhoneNum)
 
     // The Fourth Sub-field: Type of the Destination Phone Number
     let typeOfPhoneNumS = lenghtOfDestPhoneNumE + 1
     let typeOfPhoneNumE = typeOfPhoneNumS + 1
     let typeOfPhoneNum = tpduPart[typeOfPhoneNumS...typeOfPhoneNumE]
-    aPrint(typeOfPhoneNum)
 
     // The Fifth Sub-field: Destination Phone Number
     var lenghtOfDestPhoneNumInDigitsInt = lenghtOfDestPhoneNum.hexaToInt
-//    let destPhoneNum = destinationPhoneNumber(tpduPart, lenght: lenghtOfDestPhoneNumInt, typeOfPhoneNumber: typeOfPhoneNum)
     
     // TODO: UNIT TEST
     let destPhoneNumberS = typeOfPhoneNumE + 1
@@ -54,36 +48,30 @@ extension TPDU {
       destPhoneNumberE = destPhoneNumberS + lenghtOfDestPhoneNumInDigitsInt
       destPhoneNumber = tpduPart[destPhoneNumberS..<destPhoneNumberE]
     }
-    aPrint(destPhoneNumber)
 
     // The Sixth Sub-field: Protocol Identifier
     let protocolIdentifierS = destPhoneNumberE
     let protocolIdentifierE = protocolIdentifierS + 1
     let protocolIdentifier = tpduPart[protocolIdentifierS...protocolIdentifierE]
-    aPrint(protocolIdentifier)
 
-    
     // The Seventh Sub-field: Data Coding Scheme
     let dataCodeSchemeS = protocolIdentifierE + 1
     let dataCodeSchemeE = dataCodeSchemeS + 1
     let dataCodeScheme = tpduPart[dataCodeSchemeS...dataCodeSchemeE]
-    aPrint(dataCodeScheme)
 
     // The Eighth Sub-field: Length of the SMS Message Body
     let smsBodyLenghtS = dataCodeSchemeE + 1
     let smsBodyLenghtE = smsBodyLenghtS + 1
     let smsBodyInSeptets = tpduPart[smsBodyLenghtS...smsBodyLenghtE]
-    aPrint(smsBodyInSeptets)
 
     // The Ninth Sub-field: SMS Message Body
-    let smsBodyLenghtInChars = calculateCharLenghtForSmsBody(smsBodyInSeptets)
+//    let smsBodyLenghtInChars = calculateCharLenghtForSmsBody(smsBodyInSeptets)
     let smsBodyS = smsBodyLenghtE + 1
 //    let smsBodyE = smsBodyS + smsBodyLenghtInChars - 1
     let smsBodyE = tpduPart.characters.count - 1
-
     let smsBody = tpduPart[smsBodyS...smsBodyE]
-    aPrint(smsBody)
 
+    // Final result
     return (tpduType, mssgRefNumber, lenghtOfDestPhoneNum, typeOfPhoneNum, destPhoneNumber, protocolIdentifier, dataCodeScheme, smsBodyInSeptets, smsBody)
   }
   
