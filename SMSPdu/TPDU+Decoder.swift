@@ -6,9 +6,6 @@
 //  Copyright © 2016 Pavle Mijatovic. All rights reserved.
 //
 
-
-
-
 import Foundation
 
 extension TPDU {
@@ -38,7 +35,6 @@ extension TPDU {
     // The Fifth Sub-field: Destination Phone Number
     var lenghtOfDestPhoneNumInDigitsInt = lenghtOfDestPhoneNum.hexaToInt
     
-    // TODO: UNIT TEST
     let destPhoneNumberS = typeOfPhoneNumE + 1
     var destPhoneNumberE = destPhoneNumberS + lenghtOfDestPhoneNumInDigitsInt
 
@@ -65,9 +61,7 @@ extension TPDU {
     let smsBodyInSeptets = tpduPart[smsBodyLenghtS...smsBodyLenghtE]
 
     // The Ninth Sub-field: SMS Message Body
-//    let smsBodyLenghtInChars = calculateCharLenghtForSmsBody(smsBodyInSeptets)
     let smsBodyS = smsBodyLenghtE + 1
-//    let smsBodyE = smsBodyS + smsBodyLenghtInChars - 1
     let smsBodyE = tpduPart.characters.count - 1
     let smsBody = tpduPart[smsBodyS...smsBodyE]
 
@@ -75,14 +69,7 @@ extension TPDU {
     return (tpduType, mssgRefNumber, lenghtOfDestPhoneNum, typeOfPhoneNum, destPhoneNumber, protocolIdentifier, dataCodeScheme, smsBodyInSeptets, smsBody)
   }
   
-  func calculateCharLenghtForSmsBody(lenghtHex:String) -> Int {
-    let lenghtIntInSeptets = lenghtHex.hexaToInt * 7
-    let lenghtIntForSMSBodyInStringCharacters = ((lenghtIntInSeptets + (8 - lenghtIntInSeptets % 8)) / 8 ) * 2
-    return lenghtIntForSMSBodyInStringCharacters
-  }
-  
   func destinationPhoneNumber(tpduPart: String, lenghtStringHex: String, typeOfPhoneNumber: String) -> String {
-    
     
     let lenght = lenghtStringHex.hexaToInt
     
@@ -104,6 +91,47 @@ extension TPDU {
     
     return phoneNumbString
   }
+  
+  func decodeSMSMssgBodyFromtext(text:String) -> String {
+    var arrayOfBin = [String]()
+    let arrayOfHex = text.pairs
+    
+    for hex in arrayOfHex {
+      var bin = hex.hexaToBinary
+      
+      // Pad (fix) missing zeroes
+      while bin.characters.count < 8 {
+        bin = "0" + bin
+      }
+      
+      arrayOfBin.append(bin)
+    }
+    
+    arrayOfBin = arrayOfBin.reverse()
+    
+    var string = arrayOfBin.joinWithSeparator("")
+    
+    let zeroesToRemove = string.characters.count % 7
+    
+    string = (string as NSString).substringFromIndex(zeroesToRemove) // "
+    
+    var septets = string.septets
+    septets = septets.reverse()
+    
+    var finalString = ""
+    for septet in septets {
+      
+      let binary = septet
+      let number = strtoul(binary, nil, 2)
+      
+      let x = UInt32(number)
+      
+      finalString.append(UnicodeScalar(x))
+    }
+    
+    return finalString
+  }
+
 }
 
 
