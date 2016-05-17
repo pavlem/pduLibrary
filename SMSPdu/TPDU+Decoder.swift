@@ -61,9 +61,18 @@ extension TPDU {
     let smsBodyInSeptets = tpduPart[smsBodyLenghtS...smsBodyLenghtE]
 
     // The Ninth Sub-field: SMS Message Body
+    var smsBody = String()
+    
     let smsBodyS = smsBodyLenghtE + 1
     let smsBodyE = tpduPart.characters.count - 1
-    let smsBody = tpduPart[smsBodyS...smsBodyE]
+    
+    guard tpduPart.characters.count == smsBodyLenghtS
+      else {
+        smsBody = ""
+        return (tpduType, mssgRefNumber, lenghtOfDestPhoneNum, typeOfPhoneNum, destPhoneNumber, protocolIdentifier, dataCodeScheme, smsBodyInSeptets, smsBody)
+    }
+    
+    smsBody = tpduPart[smsBodyS...smsBodyE]
 
     // Final result
     return (tpduType, mssgRefNumber, lenghtOfDestPhoneNum, typeOfPhoneNum, destPhoneNumber, protocolIdentifier, dataCodeScheme, smsBodyInSeptets, smsBody)
