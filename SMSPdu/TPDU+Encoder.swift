@@ -16,13 +16,13 @@ extension TPDU {
   func encodeTPDUPart() -> (tpduString: String, tpduLenghtInOctets: String) {
     
     let numberLenght = String(removePlusCharacterAtFirstPosition(phoneNumber).characters.count).decimalToHexa2CharPadding
-    let finalTPDUString = self.tpduType + self.mssgRefNumber + numberLenght + self.numberType + numberInPDUFromat(phoneNumber) + self.protocolIdent + self.dataCodingScheme + smsBodyLengthInHex(textMessage) + encodeSMSMssgBodyFromtext(textMessage)
+    let finalTPDUString = self.tpduType + self.mssgRefNumber + numberLenght + self.numberType + numberInPDUFormat(phoneNumber) + self.protocolIdent + self.dataCodingScheme + smsBodyLengthInHex(textMessage) + encode7BitSMSMssgBodyFromtext(textMessage)
     let tpduLenght = tpduPartLenght(finalTPDUString)
     
     return (finalTPDUString, tpduLenght)
   }
   
-  private func tpduPartLenght(tpduString: String) -> String {
+  func tpduPartLenght(tpduString: String) -> String {
     
     let charCount = tpduString.characters.count
     let octetLenght = charCount / 2
@@ -30,7 +30,7 @@ extension TPDU {
     return String(octetLenght)
   }
   
-  private func smsBodyLengthInHex(text: String) -> String {
+  func smsBodyLengthInHex(text: String) -> String {
     let smsBodyArray = stringToBinaryArray(text, withPadSize: 7)
     let smsBodyString = smsBodyArray.joinWithSeparator("")
     let lenght = String(smsBodyString.characters.count/7)
@@ -40,7 +40,7 @@ extension TPDU {
   
   // MARK: - Private
   //MARK: Encoding SMS body
-  private func encodeSMSMssgBodyFromtext(text:String) -> String {
+  func encode7BitSMSMssgBodyFromtext(text:String) -> String {
     
     var binArray = stringToBinaryArray(text, withPadSize: 7)
     binArray = sevenBitPDUEncoding(binArray)

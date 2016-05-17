@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - PDU Number Formating
-func numberInPDUFromat(number: String) -> String {
+func numberInPDUFormat(number: String) -> String {
   let smscNumbNoPrefix = removePlusCharacterAtFirstPosition(number)
   let smscNumbArray = numbArrayPadLastElementForPDU(smscNumbNoPrefix.pairs)
   let smscNumbArraySwitchedCharPairs = switchCharPairsForEachElement(smscNumbArray)
