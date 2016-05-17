@@ -16,7 +16,7 @@ extension TPDU {
   func encodeTPDUPart() -> (tpduString: String, tpduLenghtInOctets: String) {
     
     let numberLenght = String(removePlusCharacterAtFirstPosition(phoneNumber).characters.count).decimalToHexa2CharPadding
-    let finalTPDUString = self.tpduType + self.mssgRefNumber + numberLenght + self.numberType + phoneNumberInPDU(phoneNumber) + self.protocolIdent + self.dataCodingScheme + smsBodyLengthInHex(textMessage) + encodeSMSMssgBodyFromtext(textMessage)
+    let finalTPDUString = self.tpduType + self.mssgRefNumber + numberLenght + self.numberType + numberInPDUFromat(phoneNumber) + self.protocolIdent + self.dataCodingScheme + smsBodyLengthInHex(textMessage) + encodeSMSMssgBodyFromtext(textMessage)
     let tpduLenght = tpduPartLenght(finalTPDUString)
     
     return (finalTPDUString, tpduLenght)
@@ -66,7 +66,7 @@ extension TPDU {
       numberOfZeros = mod - res
     }
     
-    revBinString = padZerosToAString(numberOfZeros, stringS: revBinString)
+    revBinString = padZerosToAString(numberOfZeros, string: revBinString)
     
     var binArrayGroupedIn8Bits = [String]()
     binArrayGroupedIn8Bits = revBinString.octets

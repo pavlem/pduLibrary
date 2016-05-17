@@ -8,33 +8,45 @@
 
 import Foundation
 
-func arrayOfCharacters(myString:String) -> [Character] {
-  let characterArray = [Character](myString.characters)
-  return characterArray
-}
-
-func arrayOfAscciiValue(characterArray:[Character]) -> [UInt32] {
-  let asciiArray = characterArray.map({String($0).unicodeScalars.first!.value})
-  return asciiArray
-}
-
-func arrayOfBinaryValue(asciiArray:[UInt32]) -> [String] {
-  let binaryArray = asciiArray.map ({ String($0, radix: 2)})
-  return binaryArray
-}
-
-func stringToBinaryString (myString:String) -> String {
-  // Array of characters
-  let characterArray = [Character](myString.characters)
-  // Array of asccii value
-  let asciiArray = characterArray.map({String($0).unicodeScalars.first!.value})
-  // Array of binary value
-  let binaryArray = asciiArray.map ({ String($0, radix: 2)})
-  // Reduce in a String
-  let r = binaryArray.reduce("",combine: {$0 + "" + $1})
+// MARK: - PDU Number Formating
+func numberInPDUFromat(number: String) -> String {
+  let smscNumbNoPrefix = removePlusCharacterAtFirstPosition(number)
+  let smscNumbArray = numbArrayPadLastElementForPDU(smscNumbNoPrefix.pairs)
+  let smscNumbArraySwitchedCharPairs = switchCharPairsForEachElement(smscNumbArray)
+  let smscNumbFinal = smscNumbArraySwitchedCharPairs.joinWithSeparator("")
   
-  return r
+  return smscNumbFinal
 }
+
+// MARK: - Helper
+
+//func arrayOfCharacters(myString:String) -> [Character] {
+//  let characterArray = [Character](myString.characters)
+//  return characterArray
+//}
+
+//func arrayOfAscciiValue(characterArray:[Character]) -> [UInt32] {
+//  let asciiArray = characterArray.map({String($0).unicodeScalars.first!.value})
+//  return asciiArray
+//}
+
+//func arrayOfBinaryValue(asciiArray:[UInt32]) -> [String] {
+//  let binaryArray = asciiArray.map ({ String($0, radix: 2)})
+//  return binaryArray
+//}
+
+//func stringToBinaryString (myString:String) -> String {
+//  // Array of characters
+//  let characterArray = [Character](myString.characters)
+//  // Array of asccii value
+//  let asciiArray = characterArray.map({String($0).unicodeScalars.first!.value})
+//  // Array of binary value
+//  let binaryArray = asciiArray.map ({ String($0, radix: 2)})
+//  // Reduce in a String
+//  let r = binaryArray.reduce("",combine: {$0 + "" + $1})
+//  
+//  return r
+//}
 
 func stringToBinaryArray(myString:String, withPadSize padSize:Int) -> [String] {
   var binaryArray = stringToBinaryArray(myString)
@@ -67,12 +79,13 @@ func pad(string : String, toSize: Int) -> String {
   return padded
 }
 
-func binaryValuesAsString(binaryArray:[String]) -> String {
-  let r = binaryArray.reduce("",combine: {$0 + "" + $1})
-  return r
-}
 
-func padZerosToAString(numberOfZeros:Int, stringS: String) -> String {
+//func binaryValuesAsString(binaryArray:[String]) -> String {
+//  let r = binaryArray.reduce("",combine: {$0 + "" + $1})
+//  return r
+//}
+
+func padZerosToAString(numberOfZeros:Int, string: String) -> String {
   
   var zeroes = [String]()
   
@@ -83,33 +96,24 @@ func padZerosToAString(numberOfZeros:Int, stringS: String) -> String {
   }
   
   let zStrings = zeroes.joinWithSeparator("")
-  let finalString = zStrings + stringS
+  let finalString = zStrings + string
   finalString.characters.count
   
   return finalString
 }
 
-func binToHex(bin : String) -> String {
-  // binary to integer:
-  let num = bin.withCString { strtoul($0, nil, 2) }
-  // integer to hex:
-  let hex = String(num, radix: 16, uppercase: true) // (or false)
-  return hex
-}
+//func binToHex(bin : String) -> String {
+//  // binary to integer:
+//  let num = bin.withCString { strtoul($0, nil, 2) }
+//  // integer to hex:
+//  let hex = String(num, radix: 16, uppercase: true) // (or false)
+//  return hex
+//}
 
-// MARK: - PDU Number Formating
-func phoneNumberInPDU(number: String) -> String {
-  let smscNumbNoPrefix = removePlusCharacterAtFirstPosition(number)
-  let smscNumbArray = smscNumbArrayPadLastElement(smscNumbNoPrefix.pairs)
-  let smscNumbNoFinal = smscNumbArray.joinWithSeparator("")
-  
-  return smscNumbNoFinal
-}
 
-func smscNumbArrayPadLastElement(numbArray: [String]) -> [String] {
+func numbArrayPadLastElementForPDU(numbArray: [String]) -> [String] {
   
   var smscNumbArray = numbArray
-  
   // Add F to last index if last element has one char
   var lastPair = smscNumbArray.last
   if lastPair?.characters.count == 1 {
@@ -117,7 +121,7 @@ func smscNumbArrayPadLastElement(numbArray: [String]) -> [String] {
     smscNumbArray[smscNumbArray.count - 1] = lastPair!
   }
   
-  return switchCharPairsForEachElement(smscNumbArray)
+  return smscNumbArray
 }
 
 func switchCharPairsForEachElement(arrayOfChar: [String]) -> [String] {

@@ -18,7 +18,7 @@ import Foundation
 extension SMSC {
   
   func encodeSMSCPart() -> String {
-    let smscNumber = phoneNumberInPDU(self.smscNumber)
+    let smscNumber = numberInPDUFromat(self.smscNumber)
     let smscNumberType = self.smscNumberType
     let octetLenghtOfTwoSubfields = textLenghtInOctetsInHex(smscNumber + smscNumberType)
     return octetLenghtOfTwoSubfields + smscNumberType + smscNumber
