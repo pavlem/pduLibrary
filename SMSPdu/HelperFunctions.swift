@@ -8,30 +8,20 @@
 
 import Foundation
 
-
-
 func arrayOfCharacters(myString:String) -> [Character] {
   let characterArray = [Character](myString.characters)
   return characterArray
 }
-
 
 func arrayOfAscciiValue(characterArray:[Character]) -> [UInt32] {
   let asciiArray = characterArray.map({String($0).unicodeScalars.first!.value})
   return asciiArray
 }
 
-
 func arrayOfBinaryValue(asciiArray:[UInt32]) -> [String] {
   let binaryArray = asciiArray.map ({ String($0, radix: 2)})
   return binaryArray
 }
-
-
-
-
-
-
 
 func stringToBinaryString (myString:String) -> String {
   // Array of characters
@@ -45,7 +35,6 @@ func stringToBinaryString (myString:String) -> String {
   
   return r
 }
-
 
 func stringToBinaryArray(myString:String, withPadSize padSize:Int) -> [String] {
   var binaryArray = stringToBinaryArray(myString)
@@ -78,7 +67,6 @@ func pad(string : String, toSize: Int) -> String {
   return padded
 }
 
-
 func binaryValuesAsString(binaryArray:[String]) -> String {
   let r = binaryArray.reduce("",combine: {$0 + "" + $1})
   return r
@@ -94,14 +82,12 @@ func padZerosToAString(numberOfZeros:Int, stringS: String) -> String {
     i = i + 1
   }
   
-  
   let zStrings = zeroes.joinWithSeparator("")
   let finalString = zStrings + stringS
   finalString.characters.count
   
   return finalString
 }
-
 
 func binToHex(bin : String) -> String {
   // binary to integer:
@@ -110,19 +96,6 @@ func binToHex(bin : String) -> String {
   let hex = String(num, radix: 16, uppercase: true) // (or false)
   return hex
 }
-
-
-
-
-
-func aPrint(any: Any){
-  print("🍏🍏🍏🍏\(any)🍏🍏🍏🍏")
-}
-
-func oPrint(any: Any){
-  print("🍊🍊🍊🍊🍊\(any)🍊🍊🍊🍊🍊")
-}
-
 
 // MARK: - PDU Number Formating
 func phoneNumberInPDU(number: String) -> String {
@@ -156,7 +129,6 @@ func switchCharPairsForEachElement(arrayOfChar: [String]) -> [String] {
   return tempReversedPair
 }
 
-
 func removePlusCharacterAtFirstPosition(string: String) -> String {
   return removeCharInStringAtFirstPosition("+", inString: string)
 }
@@ -171,12 +143,8 @@ func removeCharInStringAtFirstPosition(char: Character, inString string: String)
   return tempString
 }
 
-
 func textLenghtInOctetsInHex(text: String) -> String {
-//  let octets = text.characters.count / 2
-//  let hexLenght = decToHexString(octets)
   let hexLenght = String(text.characters.count / 2).decimalToHexa2CharPadding
-
   return hexLenght
 }
 
@@ -196,27 +164,11 @@ func convertBinToHex(binArray: [String]) -> [String] {
   return hexArray
 }
 
+// MARK: - Print LOG helper
+func aPrint(any: Any){
+  print("🍏🍏🍏🍏🍏\(any)🍏🍏🍏🍏🍏")
+}
 
-//MARK: - Literals -
-
-//Decimal number -> no prefix
-//Binary number -> 0b prefix
-//Octal number -> 0o prefix
-//Hexadecimal number -> 0x prefix
-
-
-//func decToHexString(decNum: Int) -> String {
-//  return String(format:"%02X", decNum)
-//}
-
-
-
-
-
-
-
-
-
-
-
-
+func oPrint(any: Any){
+  print("🍊🍊🍊🍊🍊\(any)🍊🍊🍊🍊🍊")
+}

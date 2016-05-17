@@ -6,8 +6,13 @@
 //  Copyright © 2016 Pavle Mijatovic. All rights reserved.
 //
 
-import Foundation
+//Literals
+//Decimal number -> no prefix
+//Binary number -> 0b prefix
+//Octal number -> 0o prefix
+//Hexadecimal number -> 0x prefix
 
+import Foundation
 
 extension String {
   func replace(string:String, replacement:String) -> String {
@@ -18,7 +23,6 @@ extension String {
     return self.replace(" ", replacement: "")
   }
 }
-
 
 extension String {
   
@@ -66,13 +70,9 @@ extension String {
   }
 }
 
-
-
 extension String {
   var decimalToHexa2CharPadding : String { return String(format:"%02X", Int(self)!) }
 }
-
-
 
 extension String {
   var hexaToInt      : Int    { return Int(strtoul(self, nil, 16))      }

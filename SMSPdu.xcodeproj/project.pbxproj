@@ -37,6 +37,9 @@
 		9E62C8DC1CE9CF9300A4AC98 /* SMSC+Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62C8DA1CE9CF9300A4AC98 /* SMSC+Decoder.swift */; };
 		9E62C8DE1CE9D57100A4AC98 /* TPDU+Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62C8DD1CE9D57100A4AC98 /* TPDU+Encoder.swift */; };
 		9E62C8DF1CE9D57100A4AC98 /* TPDU+Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62C8DD1CE9D57100A4AC98 /* TPDU+Encoder.swift */; };
+		9E92E5FA1CEB20F4008ABAA4 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A30F41CE37561008CFDAD /* Int+Extension.swift */; };
+		9E92E5FB1CEB210B008ABAA4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D1C311CE331540061A56A /* ViewController.swift */; };
+		9E92E5FC1CEB210E008ABAA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D1C2F1CE331540061A56A /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -335,11 +338,14 @@
 				9E3C732B1CE4C5A1005D7975 /* TPDU+Decoder.swift in Sources */,
 				9E5D1C6C1CE369190061A56A /* TPDU.swift in Sources */,
 				9E5D1C621CE333F70061A56A /* SMSC.swift in Sources */,
+				9E92E5FC1CEB210E008ABAA4 /* AppDelegate.swift in Sources */,
 				9E3C73281CE494D3005D7975 /* DecoderPDU.swift in Sources */,
+				9E92E5FB1CEB210B008ABAA4 /* ViewController.swift in Sources */,
 				9E62C8D91CE9CF5700A4AC98 /* SMSC+Encoder.swift in Sources */,
 				9E5D1C661CE336390061A56A /* HelperFunctions.swift in Sources */,
 				9E5D1C451CE331540061A56A /* SMSPduTests.swift in Sources */,
 				9E5D1C691CE336740061A56A /* String+Extension.swift in Sources */,
+				9E92E5FA1CEB20F4008ABAA4 /* Int+Extension.swift in Sources */,
 				9E62C8DC1CE9CF9300A4AC98 /* SMSC+Decoder.swift in Sources */,
 				9E62C8DF1CE9D57100A4AC98 /* TPDU+Encoder.swift in Sources */,
 				9E3C73251CE494C6005D7975 /* EncoderPDU.swift in Sources */,
