@@ -65,8 +65,8 @@ extension TPDU {
     
     let smsBodyS = smsBodyLenghtE + 1
     let smsBodyE = tpduPart.characters.count - 1
-    
-    guard tpduPart.characters.count == smsBodyLenghtS
+        
+    guard tpduPart.characters.count > smsBodyS
       else {
         smsBody = ""
         return (tpduType, mssgRefNumber, lenghtOfDestPhoneNum, typeOfPhoneNum, destPhoneNumber, protocolIdentifier, dataCodeScheme, smsBodyInSeptets, smsBody)
