@@ -40,6 +40,17 @@ class EncoderPDU {
   func encodeToPDU() -> String {
     let smscString = smscPartEncoded()
     let tpduStringTuple = tpduPartEncoded()
+    
+
+    //TODO: Implement 
+    // ANDROID
+    //    "+CMT:," + "tpdu lenght" + "\r" + "PDU......"
+    
+    // SB
+    //    "AT+CMGS:" + "tpdu lenght" + "\r" + "PDU......" + "\u001A"
+    
+    let finalString = "+CMT:," + tpduStringTuple.tpduLenghtInOctets + "\n" + smscString + tpduStringTuple.tpduString
+    aPrint(finalString)
     let encodedMssg = (tpduStringTuple.tpduLenghtInOctets + smscString + tpduStringTuple.tpduString).uppercaseString
     
     return encodedMssg
