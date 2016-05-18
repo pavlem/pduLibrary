@@ -16,7 +16,7 @@ class DecoderPDU {
   let pduMssgIndexStart = 2
   
   var smsMssg = "4207915892000000F001000B915892214365F7000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E"
-  var smsMssgBody = "FFF"
+  var smsMssgBody = ""
   
   // MARK: - Inits -
   init() {
@@ -28,6 +28,19 @@ class DecoderPDU {
   }
   
   // MARK: - Public -
+  func decode() -> (senderSMSCNumber: String, senderPhoneNum: String, senderMssg: String) {
+    
+    extractPDUPart(smsMssg)
+    
+    let pduTuple = decodePDU()
+    return pduTuple
+  }
+  
+  func extractPDUPart(smsReceived: String) {
+//    aPrint(smsReceived)
+  }
+  
+  
   func decodePDU() -> (senderSMSCNumber: String, senderPhoneNum: String, senderMssg: String) {
     
     let smscPart = smsc(smsMssg)

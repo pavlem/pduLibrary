@@ -6,30 +6,19 @@
 //  Copyright © 2016 Pavle Mijatovic. All rights reserved.
 //
 
-
-
 import Foundation
 
 extension TPDU {
   
   // MARK: - Public
-  func encodeTPDUPart() -> (tpduString: String, tpduLenghtInOctets: String) {
+  func encodeTPDUPart() -> String {
     
     let numberLenght = String(removePlusCharacterAtFirstPosition(phoneNumber).characters.count).decimalToHexa2CharPadding
     let finalTPDUString = self.tpduType + self.mssgRefNumber + numberLenght + self.numberType + numberInPDUFormat(phoneNumber) + self.protocolIdent + self.dataCodingScheme + smsBodyLengthInHex(textMessage) + encode7BitSMSMssgBodyFromtext(textMessage)
-    let tpduLenght = tpduPartLenght(finalTPDUString)
     
-    return (finalTPDUString, tpduLenght)
+    return finalTPDUString
   }
-  
-  func tpduPartLenght(tpduString: String) -> String {
     
-    let charCount = tpduString.characters.count
-    let octetLenght = charCount / 2
-    
-    return String(octetLenght)
-  }
-  
   func smsBodyLengthInHex(text: String) -> String {
     let smsBodyArray = stringToBinaryArray(text, withPadSize: 7)
     let smsBodyString = smsBodyArray.joinWithSeparator("")

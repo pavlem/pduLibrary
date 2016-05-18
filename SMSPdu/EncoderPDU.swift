@@ -36,10 +36,17 @@ class EncoderPDU {
   }
   
   
-  // MARK: - Public 
+  // MARK: - Public
+  func encode() -> String {
+    let pduMssg = encodeToPDU()
+    let finalString = pduMssg
+
+    return finalString
+  }
+  
   func encodeToPDU() -> String {
     let smscString = smscPartEncoded()
-    let tpduStringTuple = tpduPartEncoded()
+    let tpduString = tpduPartEncoded()
     
 
     //TODO: Implement 
@@ -49,9 +56,9 @@ class EncoderPDU {
     // SB
     //    "AT+CMGS:" + "tpdu lenght" + "\r" + "PDU......" + "\u001A"
     
-    let finalString = "+CMT:," + tpduStringTuple.tpduLenghtInOctets + "\n" + smscString + tpduStringTuple.tpduString
-    aPrint(finalString)
-    let encodedMssg = (tpduStringTuple.tpduLenghtInOctets + smscString + tpduStringTuple.tpduString).uppercaseString
+//    let finalString = "+CMT:," + tpduPartLenght(tpduString) + "\n" + smscString + tpduString
+//    aPrint(finalString)
+    let encodedMssg = (tpduPartLenght(tpduString) + smscString + tpduString).uppercaseString
     
     return encodedMssg
   }
@@ -63,12 +70,20 @@ class EncoderPDU {
     return smscString
   }
   
-  private func tpduPartEncoded() -> (tpduString: String, tpduLenghtInOctets: String) {
+  private func tpduPartEncoded() -> String {
     let tpdu = TPDU()
     tpdu.textMessage = smsMessage
     tpdu.phoneNumber = phoneNumber
     let tpduStringTuple = tpdu.encodeTPDUPart()
 
     return tpduStringTuple
+  }
+  
+  func tpduPartLenght(tpduString: String) -> String {
+    
+    let charCount = tpduString.characters.count
+    let octetLenght = charCount / 2
+    
+    return String(octetLenght)
   }
 }

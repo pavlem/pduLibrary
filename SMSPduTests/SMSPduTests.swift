@@ -56,24 +56,24 @@ class SMSPduTests: XCTestCase {
     
     tpdu.textMessage = "Dear friend I must say..."
     tpdu.phoneNumber = "+85291234567"
-    let tpduStringTuple1 = tpdu.encodeTPDUPart()
-    XCTAssert(("01000B915892214365F7000019c472580e32cbd36537199404b5eb733a681ecebb5c2e", "35") == tpduStringTuple1)
+    let tpduString1 = tpdu.encodeTPDUPart()
+    XCTAssert("01000B915892214365F7000019c472580e32cbd36537199404b5eb733a681ecebb5c2e" == tpduString1)
     
     tpdu.textMessage = "Hello world"
     tpdu.phoneNumber = "+38116167777"
-    let tpduStringTuple2 = tpdu.encodeTPDUPart()
-    XCTAssert(("01000B918311167677F700000Bc8329bfd06dddf723619", "23") == tpduStringTuple2)
+    let tpduString2 = tpdu.encodeTPDUPart()
+    XCTAssert("01000B918311167677F700000Bc8329bfd06dddf723619" == tpduString2)
     
     tpdu.textMessage = "It is easy to send text messages."
     tpdu.phoneNumber = "+85291234567"
-    let tpduStringTuple3 = tpdu.encodeTPDUPart()
-    XCTAssert(("01000B915892214365F7000021493a283d0795c3f33c88fe06cdcb6e32885ec6d341edf27c1e3e97e72e", "42") == tpduStringTuple3)
+    let tpduString3 = tpdu.encodeTPDUPart()
+    XCTAssert("01000B915892214365F7000021493a283d0795c3f33c88fe06cdcb6e32885ec6d341edf27c1e3e97e72e" == tpduString3)
   }
   
   func testTPDUPartLenght() {
-    XCTAssert("24" == TPDU().tpduPartLenght("01000B915892214365F700000Cc8329bfd06dddf72363904"), "🍊🍊, TPDU lenght not correct")
-    XCTAssert("39" == TPDU().tpduPartLenght("01000B915892214365F700001Dc8329bfd06dddf723619c47ccbcb6d50123eafb741f972181d02"), "🍊🍊, TPDU lenght not correct")
-    XCTAssert("52" == TPDU().tpduPartLenght("01000B915892214365F700002C493a283d07d9cbf23cc85e96e741e5f03c0fa2bf41ec7258ee06ddd16537a8fda6a7ed617a990c"), "🍊🍊, TPDU lenght not correct")
+    XCTAssert("24" == EncoderPDU().tpduPartLenght("01000B915892214365F700000Cc8329bfd06dddf72363904"), "🍊🍊, TPDU lenght not correct")
+    XCTAssert("39" == EncoderPDU().tpduPartLenght("01000B915892214365F700001Dc8329bfd06dddf723619c47ccbcb6d50123eafb741f972181d02"), "🍊🍊, TPDU lenght not correct")
+    XCTAssert("52" == EncoderPDU().tpduPartLenght("01000B915892214365F700002C493a283d07d9cbf23cc85e96e741e5f03c0fa2bf41ec7258ee06ddd16537a8fda6a7ed617a990c"), "🍊🍊, TPDU lenght not correct")
   }
   
   func testSMSBodyLengthInHex() {
