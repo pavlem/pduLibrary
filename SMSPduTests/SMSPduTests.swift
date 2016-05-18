@@ -23,10 +23,11 @@ class SMSPduTests: XCTestCase {
   
   
   // MARK: - Encoder
-  func testEncoderToPDU() {
+  func testPDUEncoder() {
     XCTAssert("2407915892000000F001000B915892214365F700000CC8329BFD06DDDF72363904" == EncoderPDU(phoneNumber: "+85291234567", smscNumber: "+85290000000", smsMessage: "Hello world!").encodeToPDU(), "🍊🍊, PDU format not correct")
     XCTAssert("230691519200000001000A91519221436500000CC8329BFD0699E5E9B29B0C" == EncoderPDU(phoneNumber: "+1529123456", smscNumber: "+1529000000", smsMessage: "Hello friend").encodeToPDU(), "🍊🍊, PDU format not correct")
     XCTAssert("220591113244F501000A91601132547600000BCCB7BCDC06A5E1F37A1B" == EncoderPDU(phoneNumber: "0611234567", smscNumber: "+1123445", smsMessage: "Lorem ipsum").encodeToPDU(), "🍊🍊, PDU format not correct")
+    XCTAssert("4207915892000000F001000B915892214365F7000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E" == EncoderPDU(phoneNumber: "+85291234567", smscNumber: "+85290000000", smsMessage: "It is easy to send text messages.").encodeToPDU(), "🍊🍊, PDU format not correct")
   }
   
   func testSMSCPartEncoder() {
@@ -87,7 +88,6 @@ class SMSPduTests: XCTestCase {
     XCTAssert("ccb7bcdc06a5e1f37a1b" == TPDU().encode7BitSMSMssgBodyFromtext("Lorem ipsum"), "🍊🍊, 7 bit Encoding not correct")
   }
   
-  
   func testNumberInPDUFormatEncoder() {
     XCTAssert("94538791F2" == numberInPDUFormat("+493578192"), "🍊🍊, Number not converted for PDU format ready state")
     XCTAssert("836161663005" == numberInPDUFormat("+381616660350"), "🍊🍊, Number not converted for PDU format ready state")
@@ -97,13 +97,6 @@ class SMSPduTests: XCTestCase {
     XCTAssert("8361427889F9" == numberInPDUFormat("+38162487989"), "🍊🍊, Number not converted for PDU format ready state")
     XCTAssert("8361427889F9" == numberInPDUFormat("38162487989"), "🍊🍊, Number not converted for PDU format ready state")
   }
-  
-  //TODO: Implement 16 bit test when encoder is functioning
-  //  func test16BitEncodingOfSMSMssgBody() {
-  //    XCTAssert("c8329bfd06dddf72363904" == TPDU().encode7BitSMSMssgBodyFromtext("Hello world!"))
-  //    XCTAssert("c472580e32cbd36537199404b5eb733a681ecebb5c2e" == TPDU().encode7BitSMSMssgBodyFromtext("Dear friend I must say..."))
-  //    XCTAssert("ccb7bcdc06a5e1f37a1b" == TPDU().encode7BitSMSMssgBodyFromtext("Lorem ipsum"))
-  //  }
   
   // MARK: - Decoder
   func testDecoderFromPDU() {
@@ -131,7 +124,6 @@ class SMSPduTests: XCTestCase {
     XCTAssert("0100089158064623000005CCB7BCDC06" == DecoderPDU().tpdu("1607915892002143F10100089158064623000005CCB7BCDC06"), "🍊🍊, TPDU part not extracted")
   }
   
-  
   func testDecomposeSMSCPart() {
     XCTAssert(("06","91","8822213314") == DecoderPDU().decomposeSMSC("06918822213314"), "🍊🍊, Decomposing of SMSC not correct")
     XCTAssert(("05","91","882221F1") == DecoderPDU().decomposeSMSC("0591882221F1"), "🍊🍊, Decomposing of SMSC not correct")
@@ -158,7 +150,6 @@ class SMSPduTests: XCTestCase {
     XCTAssert(("01", "00", "0B", "91", "5892214365F7", "00") == firstSixFields3, "🍊🍊, Decomposing of TPDU not correct")
     XCTAssert(("00", "00", "") == lastThreFields3, "🍊🍊, Decomposing of TPDU not correct")
   }
-  
   
   func testTpduLenght() {
     XCTAssert(16 == DecoderPDU().tpduLenght("1607915892002143F10100089158064623000005CCB7BCDC06"), "🍊🍊, Lenght of TPDU not correct")
@@ -190,7 +181,7 @@ class SMSPduTests: XCTestCase {
     XCTAssert("" == TPDU().decodeSMSMssgBodyFromtext(""), "🍊🍊, 7 bit data decoder not working")
   }
   
-  // MARK: - Helper Functions
+  // MARK: - PDU Helper Functions
   func testStringToBinaryArray() {
     XCTAssert(["1001000", "1100101", "1101100", "1101100", "1101111"] == stringToBinaryArray("Hello"), "🍊🍊, String to Binary not correct")
     XCTAssert(["1010000", "1100001", "1101011"] == stringToBinaryArray("Pak"), "🍊🍊, String to Binary not correct")
