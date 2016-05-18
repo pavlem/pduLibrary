@@ -20,11 +20,17 @@ class ViewController: UIViewController {
     
     super.viewDidLoad()
     
+    oPrint("smsc: \(smscNumber)")
+    oPrint("smsc: \(smscNumber)")
+    oPrint("message: \(smscNumber)")
+
+    print("---------------------------------------------------------------------------------------------")
     // MARK: Encode
     let encoder = EncoderPDU(phoneNumber: phoneNumber, smscNumber: smscNumber, smsMessage: smsMessage)
     let pduMessage = encoder.encode()
     oPrint(pduMessage)
-    
+    print("---------------------------------------------------------------------------------------------")
+
     // MARK: Decode
     let decoder = DecoderPDU()
     decoder.smsMssg = pduMessage
