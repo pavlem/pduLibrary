@@ -20,9 +20,9 @@ class ViewController: UIViewController {
     
     super.viewDidLoad()
     
-    oPrint("smsc: \(smscNumber)")
-    oPrint("smsc: \(smscNumber)")
-    oPrint("message: \(smscNumber)")
+    oPrint("phoneNumber: \(phoneNumber)")
+    oPrint("smscNumber: \(smscNumber)")
+    oPrint("smsMessage: \(smsMessage)")
 
     print("---------------------------------------------------------------------------------------------")
     // MARK: Encode
