@@ -30,22 +30,19 @@ class SMSPduTests: XCTestCase {
   }
   
   func testSMSCPartEncoder() {
+    let smsc = SMSC()
     
-    let smsc1 = SMSC()
-    smsc1.smscNumber = "+85290000000"
-    let smscString1 = smsc1.encodeSMSCPart()
+    smsc.smscNumber = "+85290000000"
+    let smscString1 = smsc.encodeSMSCPart()
     
-    let smsc2 = SMSC()
-    smsc2.smscNumber = "+38111717171"
-    let smscString2 = smsc2.encodeSMSCPart()
+    smsc.smscNumber = "+38111717171"
+    let smscString2 = smsc.encodeSMSCPart()
     
-    let smsc3 = SMSC()
-    smsc3.smscNumber = "+2223332"
-    let smscString3 = smsc3.encodeSMSCPart()
+    smsc.smscNumber = "+2223332"
+    let smscString3 = smsc.encodeSMSCPart()
     
-    let smsc4 = SMSC()
-    smsc4.smscNumber = "+22233321"
-    let smscString4 = smsc4.encodeSMSCPart()
+    smsc.smscNumber = "+22233321"
+    let smscString4 = smsc.encodeSMSCPart()
     
     XCTAssert("07915892000000F0" == smscString1, "🍊🍊, SMSC format not correct")
     XCTAssert("07918311717171F1" == smscString2, "🍊🍊, SMSC format not correct")
@@ -54,22 +51,21 @@ class SMSPduTests: XCTestCase {
   }
   
   func testTPDUPartEncoder() {
-    let tpdu1 = TPDU()
-    tpdu1.textMessage = "Dear friend I must say..."
-    tpdu1.phoneNumber = "+85291234567"
-    let tpduStringTuple1 = tpdu1.encodeTPDUPart()
+    let tpdu = TPDU()
+    
+    tpdu.textMessage = "Dear friend I must say..."
+    tpdu.phoneNumber = "+85291234567"
+    let tpduStringTuple1 = tpdu.encodeTPDUPart()
     XCTAssert(("01000B915892214365F7000019c472580e32cbd36537199404b5eb733a681ecebb5c2e", "35") == tpduStringTuple1)
     
-    let tpdu2 = TPDU()
-    tpdu2.textMessage = "Hello world"
-    tpdu2.phoneNumber = "+38116167777"
-    let tpduStringTuple2 = tpdu2.encodeTPDUPart()
+    tpdu.textMessage = "Hello world"
+    tpdu.phoneNumber = "+38116167777"
+    let tpduStringTuple2 = tpdu.encodeTPDUPart()
     XCTAssert(("01000B918311167677F700000Bc8329bfd06dddf723619", "23") == tpduStringTuple2)
     
-    let tpdu3 = TPDU()
-    tpdu3.textMessage = "It is easy to send text messages."
-    tpdu3.phoneNumber = "+85291234567"
-    let tpduStringTuple3 = tpdu3.encodeTPDUPart()
+    tpdu.textMessage = "It is easy to send text messages."
+    tpdu.phoneNumber = "+85291234567"
+    let tpduStringTuple3 = tpdu.encodeTPDUPart()
     XCTAssert(("01000B915892214365F7000021493a283d0795c3f33c88fe06cdcb6e32885ec6d341edf27c1e3e97e72e", "42") == tpduStringTuple3)
   }
   
@@ -111,12 +107,11 @@ class SMSPduTests: XCTestCase {
   
   // MARK: - Decoder
   func testDecoderFromPDU() {
-    
     let decoder = DecoderPDU()
     
     decoder.smsMssg = "25069155653422F10100099183718254F600000EC8329BFD0699E5E9B29B1C0A01"
     XCTAssert(("+555643221", "+381728456", "Hello friend!!") == decoder.decodePDU())
-
+    
     decoder.smsMssg = "23069157223233F401000B918361717171F100000BCCB7BCDC0625E1F37A1B"
     XCTAssert(("+752223334", "+38161717171", "Lorem Ipsum") == decoder.decodePDU())
     
@@ -124,25 +119,76 @@ class SMSPduTests: XCTestCase {
     XCTAssert(("+85290000000", "+85291234567", "It is easy to send text messages.") == decoder.decodePDU())
   }
   
+  func seperateSMSCPart() {
+    XCTAssert("07915892000000F0" == DecoderPDU().smsc("1607915892000000F00100089158063033000005E8329BFD06"), "🍊🍊, SMSC part not extracted")
+    XCTAssert("06915822436565" == DecoderPDU().smsc("420691582243656501000B915892214365F7000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E"), "🍊🍊, SMSC part not extracted")
+    XCTAssert("06915892002143" == DecoderPDU().smsc("18069158920021430100089158063033000008E8329BFD0E8542"), "🍊🍊, SMSC part not extracted")
+  }
+  
+  func seperateTPDUPart() {
+    XCTAssert("0100089158063033000008E8329BFD0E8542" == DecoderPDU().tpdu("18069158920021430100089158063033000008E8329BFD0E8542"), "🍊🍊, TPDU part not extracted")
+    XCTAssert("01000C9158063033214300000CCCB7BCDC06A5E1F37A3B04" == DecoderPDU().tpdu("2407915892002143F101000C9158063033214300000CCCB7BCDC06A5E1F37A3B04"), "🍊🍊, TPDU part not extracted")
+    XCTAssert("0100089158064623000005CCB7BCDC06" == DecoderPDU().tpdu("1607915892002143F10100089158064623000005CCB7BCDC06"), "🍊🍊, TPDU part not extracted")
+  }
   
   
-  func testNumberDecoder() {
+  func testDecomposeSMSCPart() {
+    XCTAssert(("06","91","8822213314") == DecoderPDU().decomposeSMSC("06918822213314"), "🍊🍊, Decomposing of SMSC not correct")
+    XCTAssert(("05","91","882221F1") == DecoderPDU().decomposeSMSC("0591882221F1"), "🍊🍊, Decomposing of SMSC not correct")
+    XCTAssert(("07","91","5892000000F0") == DecoderPDU().decomposeSMSC("07915892000000F0"), "🍊🍊, Decomposing of SMSC not correct")
+  }
+  
+  func testDecomposeTPDUPart() {
+    var decPDU = TPDU().decomposeTPDUPart("0100099183718254F600000EC8329BFD0699E5E9B29B1C0A01")
     
-    XCTAssert(true)
+    let firstSixFields1 = (decPDU.tpduType, decPDU.mssgRefNumber, decPDU.lenghtOfDestPhoneNum, decPDU.typeOfPhoneNum, decPDU.destPhoneNumber, decPDU.protocolIdentifier)
+    let lastThreFields1 = (decPDU.dataCodeScheme, decPDU.lenghtSMSBodyInSeptets, decPDU.smsBody)
+    XCTAssert(("01", "00", "09", "91", "83718254F6", "00") == firstSixFields1, "🍊🍊, Decomposing of TPDU not correct")
+    XCTAssert(("00", "0E", "C8329BFD0699E5E9B29B1C0A01") == lastThreFields1, "🍊🍊, Decomposing of TPDU not correct")
+    
+    decPDU = TPDU().decomposeTPDUPart("010008915806303300000BCCB7BCDC0625E1F37A1B")
+    let firstSixFields2 = (decPDU.tpduType, decPDU.mssgRefNumber, decPDU.lenghtOfDestPhoneNum, decPDU.typeOfPhoneNum, decPDU.destPhoneNumber, decPDU.protocolIdentifier)
+    let lastThreFields2 = (decPDU.dataCodeScheme, decPDU.lenghtSMSBodyInSeptets, decPDU.smsBody)
+    XCTAssert(("01", "00", "08", "91", "58063033", "00") == firstSixFields2, "🍊🍊, Decomposing of TPDU not correct")
+    XCTAssert(("00", "0B", "CCB7BCDC0625E1F37A1B") == lastThreFields2, "🍊🍊, Decomposing of TPDU not correct")
+    
+    decPDU = TPDU().decomposeTPDUPart("01000B915892214365F7000000")
+    let firstSixFields3 = (decPDU.tpduType, decPDU.mssgRefNumber, decPDU.lenghtOfDestPhoneNum, decPDU.typeOfPhoneNum, decPDU.destPhoneNumber, decPDU.protocolIdentifier)
+    let lastThreFields3 = (decPDU.dataCodeScheme, decPDU.lenghtSMSBodyInSeptets, decPDU.smsBody)
+    XCTAssert(("01", "00", "0B", "91", "5892214365F7", "00") == firstSixFields3, "🍊🍊, Decomposing of TPDU not correct")
+    XCTAssert(("00", "00", "") == lastThreFields3, "🍊🍊, Decomposing of TPDU not correct")
+  }
+  
+  
+  func testTpduLenght() {
+    XCTAssert(16 == DecoderPDU().tpduLenght("1607915892002143F10100089158064623000005CCB7BCDC06"), "🍊🍊, Lenght of TPDU not correct")
+    XCTAssert(23 == DecoderPDU().tpduLenght("2307915892002143F1010008915806462300000DC832FBFD7E839A4167281402"), "🍊🍊, Lenght of TPDU not correct")
+    XCTAssert(11 == DecoderPDU().tpduLenght("1107915892002143F10100089158064623000000"), "🍊🍊, Lenght of TPDU not correct")
+  }
+  
+  func testTPDUMssgExtract() {
+    XCTAssert("07915892002143F1010008915806462300000DC832FBFD7E839A4167281402" == DecoderPDU().pduMessage("2307915892002143F1010008915806462300000DC832FBFD7E839A4167281402"), "🍊🍊, TPDU part not correct")
+    XCTAssert("07915892002143F10100089158064623000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E" == DecoderPDU().pduMessage("4007915892002143F10100089158064623000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E"), "🍊🍊, TPDU part not correct")
+    XCTAssert("07915892002143F10100089158064623000000" == DecoderPDU().pduMessage("1107915892002143F10100089158064623000000"), "🍊🍊, TPDU part not correct")
+  }
+  
+  func testSMSCNumberDecoder() {
+    XCTAssert("+85290012341" == SMSC().senderSMSCNumber("5892002143F1", numberType: "91"), "🍊🍊, SMSC number part not correctly decoded")
+    XCTAssert("+8529001234" == SMSC().senderSMSCNumber("5892002143", numberType: "91"), "🍊🍊, SMSC number part not correctly decoded")
+    XCTAssert("+85292345" == SMSC().senderSMSCNumber("58923254", numberType: "91"), "🍊🍊, SMSC number part not correctly decoded")
+  }
+  
+  func testDestinationNumberDecoder() {
+    XCTAssert("+856064320" == TPDU().destinationPhoneNumber("0100089158064623000000", lenghtStringHex: "08", typeOfPhoneNumber: "91"), "🍊🍊, receiver number part not correctly decoded")
+    XCTAssert("+85291234567" == TPDU().destinationPhoneNumber("01000B915892214365F7000000", lenghtStringHex: "0B", typeOfPhoneNumber: "91"), "🍊🍊, receiver number part not correctly decoded")
+    XCTAssert("+8529123456740" == TPDU().destinationPhoneNumber("01000C91589221436547000000", lenghtStringHex: "0C", typeOfPhoneNumber: "91"), "🍊🍊, receiver number part not correctly decoded")
   }
   
   func testData7BitDecoder() {
-    XCTAssert(true)
-    
+    XCTAssert("Hello!!!" == TPDU().decodeSMSMssgBodyFromtext("C8329BFD0E8542"), "🍊🍊, 7 bit data decoder not working")
+    XCTAssert("It is easy to send text messages." == TPDU().decodeSMSMssgBodyFromtext("493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E"), "🍊🍊, 7 bit data decoder not working")
+    XCTAssert("" == TPDU().decodeSMSMssgBodyFromtext(""), "🍊🍊, 7 bit data decoder not working")
   }
-  
-  
-  func testPDUMessageDecoder() {
-    XCTAssert(true)
-    
-  }
-  
-  
   
   // MARK: - Helper Functions
   func testStringToBinaryArray() {

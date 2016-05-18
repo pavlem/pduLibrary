@@ -44,7 +44,7 @@ class DecoderPDU {
   }
   
   // MARK: - Private -
-  private func smsc(smsMssg: String) -> String {
+  func smsc(smsMssg: String) -> String {
     let tpduLengthInt = tpduLenght(smsMssg)
     let pduMssg = smsMssg[2...smsMssg.characters.count-1]
     let smscPart = pduMssg[0...pduMssg.characters.count-1 - tpduLengthInt*2]
@@ -52,28 +52,28 @@ class DecoderPDU {
     return smscPart
   }
   
-  private func tpdu(smsMssg: String) -> String {
+  func tpdu(smsMssg: String) -> String {
     let pduMssg = pduMessage(smsMssg)
     let tpduPart = pduMssg[smsc(smsMssg).characters.count...pduMssg.characters.count-1]
     
     return tpduPart
   }
   
-  private func decomposeSMSC(smscString: String) -> (senderSMSLenght: String, senderSMSCNumberType: String, senderSMSCNumber: String) {
+  func decomposeSMSC(smscString: String) -> (senderSMSLenght: String, senderSMSCNumberType: String, senderSMSCNumber: String) {
     let smscTuple = SMSC().decomposeSMSCPart(smscString)
     return smscTuple
   }
   
-  private func decomposeTPDU(tpduString: String) -> (tpduType: String, mssgRefNumber: String, lenghtOfDestPhoneNum: String, typeOfPhoneNum: String, destPhoneNumber: String, protocolIdentifier: String, dataCodeScheme: String, lenghtSMSBodyInSeptets: String, smsBody: String) {
+  func decomposeTPDU(tpduString: String) -> (tpduType: String, mssgRefNumber: String, lenghtOfDestPhoneNum: String, typeOfPhoneNum: String, destPhoneNumber: String, protocolIdentifier: String, dataCodeScheme: String, lenghtSMSBodyInSeptets: String, smsBody: String) {
     let tpduTuple = TPDU().decomposeTPDUPart(tpduString)
     return tpduTuple
   }
 
-  private func tpduLenght(smsMssg: String) -> Int {
+  func tpduLenght(smsMssg: String) -> Int {
     return Int(smsMssg[tpduLenghtIndexStart...tpduLenghtIndexEnd])!
   }
   
-  private func pduMessage(smsMssg: String) -> String {
+  func pduMessage(smsMssg: String) -> String {
     return smsMssg[pduMssgIndexStart...smsMssg.characters.count-1]
   }
 }

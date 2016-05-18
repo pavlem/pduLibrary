@@ -12,11 +12,11 @@ class ViewController: UIViewController {
   
   
   // MARK: Test Data
-  let phoneNumber = "+381728456"
-  let smscNumber = "+555643221"
-  let smsMessage = "Hello friend!!"
+  let phoneNumber = "+85291234567"
+  let smscNumber = "+85290000000"
+  let smsMessage = "It is easy to send text messages."
 //  let smsMssg = "4207915892000000F001000B915892214365F7000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E"
-  var smsMssgReceived = "3507915892000000F001000B915892214365F7000019417618D44E83D46590BA2C2EBBDFA0301A8D0EA3C368"
+//  var smsMssgReceived = "3507915892000000F001000B915892214365F7000019417618D44E83D46590BA2C2EBBDFA0301A8D0EA3C368"
 
   
   override func viewDidLoad() {
@@ -35,4 +35,3 @@ class ViewController: UIViewController {
     aPrint(mssgTuple)
   }
 }
-
