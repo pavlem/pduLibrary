@@ -41,7 +41,7 @@ class EncoderPDU {
   func encode() -> String {
     let prefix = prefixAndroidAP
     let finalString = prefix + stringLenghtInOctets(tpduPartEncoded()) + "\r" + encodeToPDU()
-    
+   
     return finalString
   }
   

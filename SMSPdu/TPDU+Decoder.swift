@@ -93,7 +93,6 @@ extension TPDU {
     let switchedArray = switchCharPairsForEachElement(phoneNumbReveresedArray)
     
     var phoneNumb = switchedArray.joinWithSeparator("")
-//    phoneNumb = phoneNumb.substringWithRange(phoneNumb.startIndex..<phoneNumb.startIndex.advancedBy(lenght))
     phoneNumb = phoneNumb[0..<lenght]
     
     if typeOfPhoneNumber == SMS_NUMB_TYPE.international {

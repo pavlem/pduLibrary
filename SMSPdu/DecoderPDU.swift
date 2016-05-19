@@ -16,6 +16,10 @@ class DecoderPDU {
   var smsMssgBody = ""
   
   // MARK: - Inits -
+  init () {
+    
+  }
+  
   init(smsMssg: String) {
     self.smsMssg = smsMssg
   }
