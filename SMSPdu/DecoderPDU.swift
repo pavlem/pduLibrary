@@ -21,29 +21,29 @@ class DecoderPDU {
   }
   
   // MARK: - Public -
-  func decode() -> (senderSMSCNumber: String, senderPhoneNum: String, senderMssg: String) {
+  func decode() -> (senderSMSCNumber: String, phoneNum: String, senderMssg: String) {
     
-    let tpduLenghtAndPDUMssgTuple = extractPDUPartsFromSMS(self.smsMssg)
-    let pduMssg = tpduLenghtAndPDUMssgTuple.pduMssg
-    let tpduLenght = tpduLenghtAndPDUMssgTuple.lenghtOfTPDU
+    let tpduLenghtAndPDU = extractPDUPartsFromSMS(self.smsMssg)
+    let pduMssg = tpduLenghtAndPDU.pduMssg
+    let tpduLenght = tpduLenghtAndPDU.lenghtOfTPDU
     
-    let pduTuple = decodePDU(pduMssg, tpduLenght: Int(tpduLenght)!)
-    return pduTuple
+    let decodedElements = decodePDU(pduMssg, tpduLenght: Int(tpduLenght)!)
+    return decodedElements
   }
   
   func extractPDUPartsFromSMS(smsReceived: String) -> (pduMssg: String, lenghtOfTPDU: String) {
-    let indexOfCR = indexOfFirstCRCharacter(smsReceived)
-    let pduMssg = smsReceived.substringFromIndex(smsReceived.startIndex.advancedBy(indexOfCR + 1))
-    let lenghtOfTPDU = lenghtOfPDUInHex(smsReceived, indexOfCR: indexOfCR)
+    let crIndex = indexOfFirstCRCharacter(smsReceived)
+    let pduMssg = smsReceived.substringFromIndex(smsReceived.startIndex.advancedBy(crIndex + 1))
+    let tpduLenght = tpduLenghtInOctets(smsReceived, crIndex: crIndex)
     
-    return (pduMssg, lenghtOfTPDU)
+    return (pduMssg, tpduLenght)
   }
   
-  func lenghtOfPDUInHex(smsReceived: String, indexOfCR: Int) -> String {
-   return smsReceived.substringWithRange(smsReceived.startIndex.advancedBy(indexOfCR - 2)..<smsReceived.startIndex.advancedBy(indexOfCR))
+  func tpduLenghtInOctets(smsReceived: String, crIndex: Int) -> String {
+   return smsReceived.substringWithRange(smsReceived.startIndex.advancedBy(crIndex - 2)..<smsReceived.startIndex.advancedBy(crIndex))
   }
   
-  func decodePDU(pduMssg: String, tpduLenght: Int) -> (senderSMSCNumber: String, senderPhoneNum: String, senderMssg: String) {
+  func decodePDU(pduMssg: String, tpduLenght: Int) -> (senderSMSCNumber: String, phoneNum: String, senderMssg: String) {
     
     let smscPart = smsc(pduMssg, tpduLengthInt: tpduLenght)
     let tpduPart = tpdu(pduMssg, smscPart: smscPart)

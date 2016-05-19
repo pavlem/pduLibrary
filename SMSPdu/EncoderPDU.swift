@@ -6,6 +6,11 @@
 //  Copyright © 2016 Pavle Mijatovic. All rights reserved.
 //
 
+
+//TODO: Implement
+// ANDROID -> "+CMT:," + "tpdu lenght" + "\r" + "PDU......"
+// SB -> "AT+CMGS:" + "tpdu lenght" + "\r" + "PDU......" + "\u001A"
+
 import Foundation
 
 class EncoderPDU {
@@ -15,6 +20,9 @@ class EncoderPDU {
   let phoneNumberDefault = "+85291234567"
   let smscNumberDefault = "+85290000000"
   let smsMessageDefault = "Hello World!!!"
+  
+  let prefixAndroidAP = "+CMT:,"
+  let prefixSB = "AT+CMGS:"
 
   // MARK: Vars
   var phoneNumber = ""
@@ -32,12 +40,9 @@ class EncoderPDU {
   // MARK: - Public
   func encode() -> String {
     
-    //TODO: Implement
-    // ANDROID -> "+CMT:," + "tpdu lenght" + "\r" + "PDU......"
-    // SB -> "AT+CMGS:" + "tpdu lenght" + "\r" + "PDU......" + "\u001A"
-    
 //    let finalString = tpduPartLenght(tpduPartEncoded()) + encodeToPDU()
-    let finalString = "+CMT:," + tpduPartLenght(tpduPartEncoded()) + "\r" + encodeToPDU()
+    let prefix = prefixAndroidAP
+    let finalString = prefix + tpduPartLenght(tpduPartEncoded()) + "\r" + encodeToPDU()
     aPrint(finalString)
     
     return finalString
