@@ -12,9 +12,9 @@ class ViewController: UIViewController {
   
   
   // MARK: Test Data
-  let smscNumber = "+855544333"
-  let phoneNumber = "+869822255"
-  let smsMessage = "Cao Pavle, sta ima bolan, kako si jebote ja!!!"
+  let smscNumber = "+85290000000"
+  let phoneNumber = "+85291234567"
+  let smsMessage = "It is easy to send text messages."
   
   override func viewDidLoad() {
     
@@ -33,7 +33,6 @@ class ViewController: UIViewController {
 
     // MARK: Decode
     let decoder = DecoderPDU(smsMssg: smsMessageReceived)
-//    decoder.smsMssg = pduMessage
     let mssgTuple = decoder.decode()
     aPrint(mssgTuple)
   }
