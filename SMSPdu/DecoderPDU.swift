@@ -11,11 +11,12 @@ import Foundation
 class DecoderPDU {
   
   // MARK: - Properties -
-  let tpduLenghtIndexStart = 0
-  let tpduLenghtIndexEnd = 1
-  let pduMssgIndexStart = 2
+//  let tpduLenghtIndexStart = 0
+//  let tpduLenghtIndexEnd = 1
+//  let pduMssgIndexStart = 2
   
-  var smsMssg = "4207915892000000F001000B915892214365F7000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E"
+  var smsMssg = ""
+  var pduMssg = ""
   var smsMssgBody = ""
   
   // MARK: - Inits -
@@ -30,21 +31,32 @@ class DecoderPDU {
   // MARK: - Public -
   func decode() -> (senderSMSCNumber: String, senderPhoneNum: String, senderMssg: String) {
     
-    extractPDUPart(smsMssg)
     
-    let pduTuple = decodePDU()
+    let pduLenghtAndMssgTuple = extractPDUPartsFromSMS(self.smsMssg)
+    
+    let pduMssg = pduLenghtAndMssgTuple.pduMssg
+    let tpduLenght = pduLenghtAndMssgTuple.lenghtOfPDU
+    
+    let pduTuple = decodePDU(pduMssg, tpduLenght: Int(tpduLenght)!)
     return pduTuple
   }
   
-  func extractPDUPart(smsReceived: String) {
-//    aPrint(smsReceived)
+  func extractPDUPartsFromSMS(smsReceived: String) -> (pduMssg: String, lenghtOfPDU: String) {
+    let indexOfCR = indexOfFirstCRCharacter(smsReceived)
+    let pduMssg = smsReceived.substringFromIndex(smsReceived.startIndex.advancedBy(indexOfCR + 1))
+    let lenghtOfPDU = lenghtOfPDUInHex(smsReceived, indexOfCR: indexOfCR)
+    
+    return (pduMssg, lenghtOfPDU)
   }
   
+  func lenghtOfPDUInHex(smsReceived: String, indexOfCR: Int) -> String {
+   return smsReceived.substringWithRange(smsReceived.startIndex.advancedBy(indexOfCR - 2)..<smsReceived.startIndex.advancedBy(indexOfCR))
+  }
   
-  func decodePDU() -> (senderSMSCNumber: String, senderPhoneNum: String, senderMssg: String) {
+  func decodePDU(pduMssg: String, tpduLenght: Int) -> (senderSMSCNumber: String, senderPhoneNum: String, senderMssg: String) {
     
-    let smscPart = smsc(smsMssg)
-    let tpduPart = tpdu(smsMssg)
+    let smscPart = smsc(pduMssg, tpduLengthInt: tpduLenght)
+    let tpduPart = tpdu(pduMssg, smscPart: smscPart)
     
     let scmscElements = decomposeSMSC(smscPart)
     let tpduElements = decomposeTPDU(tpduPart)
@@ -57,18 +69,13 @@ class DecoderPDU {
   }
   
   // MARK: - Private -
-  func smsc(smsMssg: String) -> String {
-    let tpduLengthInt = tpduLenght(smsMssg)
-    let pduMssg = smsMssg[2...smsMssg.characters.count-1]
+  func smsc(pduMssg: String, tpduLengthInt: Int) -> String {
     let smscPart = pduMssg[0...pduMssg.characters.count-1 - tpduLengthInt*2]
-    
     return smscPart
   }
   
-  func tpdu(smsMssg: String) -> String {
-    let pduMssg = pduMessage(smsMssg)
-    let tpduPart = pduMssg[smsc(smsMssg).characters.count...pduMssg.characters.count-1]
-    
+  func tpdu(pduMssg: String, smscPart: String) -> String {
+    let tpduPart = pduMssg[smscPart.characters.count...pduMssg.characters.count-1]
     return tpduPart
   }
   
@@ -81,12 +88,12 @@ class DecoderPDU {
     let tpduTuple = TPDU().decomposeTPDUPart(tpduString)
     return tpduTuple
   }
-
-  func tpduLenght(smsMssg: String) -> Int {
-    return Int(smsMssg[tpduLenghtIndexStart...tpduLenghtIndexEnd])!
-  }
   
-  func pduMessage(smsMssg: String) -> String {
-    return smsMssg[pduMssgIndexStart...smsMssg.characters.count-1]
-  }
+//  func tpduLenght(smsMssg: String) -> Int {
+//    return Int(smsMssg[tpduLenghtIndexStart...tpduLenghtIndexEnd])!
+//  }
+  
+//  func pduMessage(smsMssg: String) -> String {
+//    return smsMssg[pduMssgIndexStart...smsMssg.characters.count-1]
+//  }
 }

@@ -94,6 +94,19 @@ func removePlusCharacterAtFirstPosition(string: String) -> String {
 }
 
 // MARK: - Global functions
+func indexOfFirstCRCharacter(smsReceived: String) -> Int {
+  
+  var indexOfChar = -1
+  
+  for (index, char) in smsReceived.characters.enumerate() {
+    if char == "\r" {
+      indexOfChar = index
+    }
+  }
+  
+  return indexOfChar
+}
+
 func removeCharInStringAtFirstPosition(char: Character, inString string: String) -> String {
   var tempString = string
   

@@ -35,12 +35,17 @@ class EncoderPDU {
     self.smsMessage = smsMessage
   }
   
-  
   // MARK: - Public
   func encode() -> String {
-    let pduMssg = encodeToPDU()
-    let finalString = pduMssg
-
+    
+    //TODO: Implement
+    // ANDROID -> "+CMT:," + "tpdu lenght" + "\r" + "PDU......"
+    // SB -> "AT+CMGS:" + "tpdu lenght" + "\r" + "PDU......" + "\u001A"
+    
+//    let finalString = tpduPartLenght(tpduPartEncoded()) + encodeToPDU()
+    let finalString = "+CMT:," + tpduPartLenght(tpduPartEncoded()) + "\r" + encodeToPDU()
+    aPrint(finalString)
+    
     return finalString
   }
   
@@ -48,19 +53,9 @@ class EncoderPDU {
     let smscString = smscPartEncoded()
     let tpduString = tpduPartEncoded()
     
-
-    //TODO: Implement 
-    // ANDROID
-    //    "+CMT:," + "tpdu lenght" + "\r" + "PDU......"
+    let encodedPDUMssg = (smscString + tpduString).uppercaseString
     
-    // SB
-    //    "AT+CMGS:" + "tpdu lenght" + "\r" + "PDU......" + "\u001A"
-    
-//    let finalString = "+CMT:," + tpduPartLenght(tpduString) + "\n" + smscString + tpduString
-//    aPrint(finalString)
-    let encodedMssg = (tpduPartLenght(tpduString) + smscString + tpduString).uppercaseString
-    
-    return encodedMssg
+    return encodedPDUMssg
   }
   
   private func smscPartEncoded() -> String {
