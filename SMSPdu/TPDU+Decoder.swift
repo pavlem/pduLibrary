@@ -128,6 +128,11 @@ extension TPDU {
     var septets = string.septets
     septets = septets.reverse()
     
+    // FIX for the last element surplus (all zeroes) 
+    if septets.last == "0000000" {
+      septets.removeLast()
+    }
+    
     var finalString = ""
     for septet in septets {
       
