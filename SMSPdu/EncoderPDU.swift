@@ -39,11 +39,8 @@ class EncoderPDU {
   
   // MARK: - Public
   func encode() -> String {
-    
-//    let finalString = tpduPartLenght(tpduPartEncoded()) + encodeToPDU()
     let prefix = prefixAndroidAP
-    let finalString = prefix + tpduPartLenght(tpduPartEncoded()) + "\r" + encodeToPDU()
-    aPrint(finalString)
+    let finalString = prefix + stringLenghtInOctets(tpduPartEncoded()) + "\r" + encodeToPDU()
     
     return finalString
   }
@@ -51,13 +48,12 @@ class EncoderPDU {
   func encodeToPDU() -> String {
     let smscString = smscPartEncoded()
     let tpduString = tpduPartEncoded()
-    
     let encodedPDUMssg = (smscString + tpduString).uppercaseString
     
     return encodedPDUMssg
   }
   
-  private func smscPartEncoded() -> String {
+  func smscPartEncoded() -> String {
     let smsc = SMSC()
     smsc.smscNumber = smscNumber
     let smscString = smsc.encodeSMSCPart()
@@ -71,13 +67,5 @@ class EncoderPDU {
     let tpduStringTuple = tpdu.encodeTPDUPart()
 
     return tpduStringTuple
-  }
-  
-  func tpduPartLenght(tpduString: String) -> String {
-    
-    let charCount = tpduString.characters.count
-    let octetLenght = charCount / 2
-    
-    return String(octetLenght)
   }
 }

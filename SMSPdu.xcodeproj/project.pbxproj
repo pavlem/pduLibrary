@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9E0A30F51CE37561008CFDAD /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A30F41CE37561008CFDAD /* Int+Extension.swift */; };
+		9E0A30F51CE37561008CFDAD /* Int+PDUExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A30F41CE37561008CFDAD /* Int+PDUExtension.swift */; };
 		9E3C73241CE494C6005D7975 /* EncoderPDU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3C73231CE494C6005D7975 /* EncoderPDU.swift */; };
 		9E3C73251CE494C6005D7975 /* EncoderPDU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3C73231CE494C6005D7975 /* EncoderPDU.swift */; };
 		9E3C73271CE494D3005D7975 /* DecoderPDU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E3C73261CE494D3005D7975 /* DecoderPDU.swift */; };
@@ -27,8 +27,8 @@
 		9E5D1C621CE333F70061A56A /* SMSC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D1C601CE333F70061A56A /* SMSC.swift */; };
 		9E5D1C651CE336390061A56A /* PDUHelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D1C641CE336390061A56A /* PDUHelperFunctions.swift */; };
 		9E5D1C661CE336390061A56A /* PDUHelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D1C641CE336390061A56A /* PDUHelperFunctions.swift */; };
-		9E5D1C681CE336740061A56A /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D1C671CE336740061A56A /* String+Extension.swift */; };
-		9E5D1C691CE336740061A56A /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D1C671CE336740061A56A /* String+Extension.swift */; };
+		9E5D1C681CE336740061A56A /* String+PDUExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D1C671CE336740061A56A /* String+PDUExtension.swift */; };
+		9E5D1C691CE336740061A56A /* String+PDUExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D1C671CE336740061A56A /* String+PDUExtension.swift */; };
 		9E5D1C6B1CE369190061A56A /* TPDU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D1C6A1CE369190061A56A /* TPDU.swift */; };
 		9E5D1C6C1CE369190061A56A /* TPDU.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D1C6A1CE369190061A56A /* TPDU.swift */; };
 		9E62C8D81CE9CF5700A4AC98 /* SMSC+Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62C8D71CE9CF5700A4AC98 /* SMSC+Encoder.swift */; };
@@ -37,7 +37,7 @@
 		9E62C8DC1CE9CF9300A4AC98 /* SMSC+Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62C8DA1CE9CF9300A4AC98 /* SMSC+Decoder.swift */; };
 		9E62C8DE1CE9D57100A4AC98 /* TPDU+Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62C8DD1CE9D57100A4AC98 /* TPDU+Encoder.swift */; };
 		9E62C8DF1CE9D57100A4AC98 /* TPDU+Encoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E62C8DD1CE9D57100A4AC98 /* TPDU+Encoder.swift */; };
-		9E92E5FA1CEB20F4008ABAA4 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A30F41CE37561008CFDAD /* Int+Extension.swift */; };
+		9E92E5FA1CEB20F4008ABAA4 /* Int+PDUExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E0A30F41CE37561008CFDAD /* Int+PDUExtension.swift */; };
 		9E92E5FB1CEB210B008ABAA4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D1C311CE331540061A56A /* ViewController.swift */; };
 		9E92E5FC1CEB210E008ABAA4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5D1C2F1CE331540061A56A /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -60,7 +60,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9E0A30F41CE37561008CFDAD /* Int+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		9E0A30F41CE37561008CFDAD /* Int+PDUExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+PDUExtension.swift"; sourceTree = "<group>"; };
 		9E3C73231CE494C6005D7975 /* EncoderPDU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncoderPDU.swift; sourceTree = "<group>"; };
 		9E3C73261CE494D3005D7975 /* DecoderPDU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecoderPDU.swift; sourceTree = "<group>"; };
 		9E3C73291CE4C5A1005D7975 /* TPDU+Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TPDU+Decoder.swift"; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		9E5D1C5D1CE331780061A56A /* SMSConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSConstants.swift; sourceTree = "<group>"; };
 		9E5D1C601CE333F70061A56A /* SMSC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSC.swift; sourceTree = "<group>"; };
 		9E5D1C641CE336390061A56A /* PDUHelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDUHelperFunctions.swift; sourceTree = "<group>"; };
-		9E5D1C671CE336740061A56A /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		9E5D1C671CE336740061A56A /* String+PDUExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+PDUExtension.swift"; sourceTree = "<group>"; };
 		9E5D1C6A1CE369190061A56A /* TPDU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPDU.swift; sourceTree = "<group>"; };
 		9E62C8D71CE9CF5700A4AC98 /* SMSC+Encoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SMSC+Encoder.swift"; sourceTree = "<group>"; };
 		9E62C8DA1CE9CF9300A4AC98 /* SMSC+Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SMSC+Decoder.swift"; sourceTree = "<group>"; };
@@ -136,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				9E5D1C631CE335A80061A56A /* App */,
+				9E5D1C311CE331540061A56A /* ViewController.swift */,
 				9E3C73231CE494C6005D7975 /* EncoderPDU.swift */,
 				9E3C73261CE494D3005D7975 /* DecoderPDU.swift */,
 				9E5D1C6A1CE369190061A56A /* TPDU.swift */,
@@ -145,8 +146,8 @@
 				9E62C8D71CE9CF5700A4AC98 /* SMSC+Encoder.swift */,
 				9E62C8DA1CE9CF9300A4AC98 /* SMSC+Decoder.swift */,
 				9E5D1C641CE336390061A56A /* PDUHelperFunctions.swift */,
-				9E5D1C671CE336740061A56A /* String+Extension.swift */,
-				9E0A30F41CE37561008CFDAD /* Int+Extension.swift */,
+				9E5D1C671CE336740061A56A /* String+PDUExtension.swift */,
+				9E0A30F41CE37561008CFDAD /* Int+PDUExtension.swift */,
 				9E5D1C5D1CE331780061A56A /* SMSConstants.swift */,
 			);
 			path = SMSPdu;
@@ -174,7 +175,6 @@
 			isa = PBXGroup;
 			children = (
 				9E5D1C2F1CE331540061A56A /* AppDelegate.swift */,
-				9E5D1C311CE331540061A56A /* ViewController.swift */,
 				9E5D1C331CE331540061A56A /* Main.storyboard */,
 				9E5D1C361CE331540061A56A /* Assets.xcassets */,
 				9E5D1C381CE331540061A56A /* LaunchScreen.storyboard */,
@@ -315,7 +315,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E5D1C651CE336390061A56A /* PDUHelperFunctions.swift in Sources */,
-				9E0A30F51CE37561008CFDAD /* Int+Extension.swift in Sources */,
+				9E0A30F51CE37561008CFDAD /* Int+PDUExtension.swift in Sources */,
 				9E62C8DB1CE9CF9300A4AC98 /* SMSC+Decoder.swift in Sources */,
 				9E5D1C321CE331540061A56A /* ViewController.swift in Sources */,
 				9E5D1C6B1CE369190061A56A /* TPDU.swift in Sources */,
@@ -324,7 +324,7 @@
 				9E62C8D81CE9CF5700A4AC98 /* SMSC+Encoder.swift in Sources */,
 				9E5D1C5E1CE331780061A56A /* SMSConstants.swift in Sources */,
 				9E5D1C301CE331540061A56A /* AppDelegate.swift in Sources */,
-				9E5D1C681CE336740061A56A /* String+Extension.swift in Sources */,
+				9E5D1C681CE336740061A56A /* String+PDUExtension.swift in Sources */,
 				9E3C732A1CE4C5A1005D7975 /* TPDU+Decoder.swift in Sources */,
 				9E5D1C611CE333F70061A56A /* SMSC.swift in Sources */,
 				9E62C8DE1CE9D57100A4AC98 /* TPDU+Encoder.swift in Sources */,
@@ -344,8 +344,8 @@
 				9E62C8D91CE9CF5700A4AC98 /* SMSC+Encoder.swift in Sources */,
 				9E5D1C661CE336390061A56A /* PDUHelperFunctions.swift in Sources */,
 				9E5D1C451CE331540061A56A /* SMSPduTests.swift in Sources */,
-				9E5D1C691CE336740061A56A /* String+Extension.swift in Sources */,
-				9E92E5FA1CEB20F4008ABAA4 /* Int+Extension.swift in Sources */,
+				9E5D1C691CE336740061A56A /* String+PDUExtension.swift in Sources */,
+				9E92E5FA1CEB20F4008ABAA4 /* Int+PDUExtension.swift in Sources */,
 				9E62C8DC1CE9CF9300A4AC98 /* SMSC+Decoder.swift in Sources */,
 				9E62C8DF1CE9D57100A4AC98 /* TPDU+Encoder.swift in Sources */,
 				9E3C73251CE494C6005D7975 /* EncoderPDU.swift in Sources */,

@@ -9,12 +9,12 @@
 import Foundation
 
 extension TPDU {
-  
+    
   func decomposeTPDUPart(tpduPart: String) -> (tpduType: String, mssgRefNumber: String, lenghtOfDestPhoneNum: String, typeOfPhoneNum: String, destPhoneNumber: String, protocolIdentifier: String, dataCodeScheme: String, lenghtSMSBodyInSeptets: String, smsBody: String) {
     
     // The First Sub-field: First Octet of the TPDU
-    let tpduS = 0
-    let tpduE = tpduS + 1
+    let tpduS = tpduStartIndex
+    let tpduE = tpduStartIndex + 1
     let tpduType = tpduPart[tpduS...tpduE]
     
     // The Second Sub-field: Message Reference Number
@@ -86,24 +86,21 @@ extension TPDU {
   func destinationPhoneNumber(tpduPart: String, lenghtStringHex: String, typeOfPhoneNumber: String) -> String {
     
     let lenght = lenghtStringHex.hexaToInt
+    var phoneNumbReversed = tpduPart[tpduPartStartPhoneNumberIndex...tpduPart.characters.count - 1]
+    phoneNumbReversed = phoneNumbReversed[0...lenghtStringHex.hexaToInt]
+
+    let phoneNumbReveresedArray = phoneNumbReversed.pairs
+    let switchedArray = switchCharPairsForEachElement(phoneNumbReveresedArray)
     
-    var phoneNumb = tpduPart[8...tpduPart.characters.count - 1]
-    phoneNumb = phoneNumb[0...lenght]
-    
-    let phoneNumbArray = phoneNumb.pairs
-    let switchedArray = switchCharPairsForEachElement(phoneNumbArray)
-    
-    var phoneNumbString = switchedArray.joinWithSeparator("")
-    
-    if phoneNumbString.characters.last == "F" {
-      phoneNumbString = String(phoneNumbString.characters.dropLast())
-    }
+    var phoneNumb = switchedArray.joinWithSeparator("")
+//    phoneNumb = phoneNumb.substringWithRange(phoneNumb.startIndex..<phoneNumb.startIndex.advancedBy(lenght))
+    phoneNumb = phoneNumb[0..<lenght]
     
     if typeOfPhoneNumber == SMS_NUMB_TYPE.international {
-      phoneNumbString = "+" + phoneNumbString
+      phoneNumb = "+" + phoneNumb
     }
     
-    return phoneNumbString
+    return phoneNumb
   }
   
   func decodeSMSMssgBodyFromtext(text:String) -> String {

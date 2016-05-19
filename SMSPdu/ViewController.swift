@@ -12,16 +12,21 @@ class ViewController: UIViewController {
   
   
   // MARK: Test Data
-  let phoneNumber = "+85291234567"
+  let phoneNumber = "+12345678"
   let smscNumber = "+85290000000"
   let smsMessage = "It is easy to send text messages."
+
+  
+//  let smscNumber = "+2345656565656565656565"
+//  let phoneNumber = "+1234"
+//  let smsMessage = "Helloo!"
   
   override func viewDidLoad() {
     
     super.viewDidLoad()
     
-    oPrint("phoneNumber: \(phoneNumber)")
     oPrint("smscNumber: \(smscNumber)")
+    oPrint("phoneNumber: \(phoneNumber)")
     oPrint("smsMessage: \(smsMessage)")
 
     print("---------------------------------------------------------------------------------------------")

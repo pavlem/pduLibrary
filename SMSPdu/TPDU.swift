@@ -26,6 +26,9 @@ class TPDU {
   var textMessage = ""
   var phoneNumber = ""
   
+  let tpduPartStartPhoneNumberIndex = 8
+  let tpduStartIndex = 0
+
   // MARK: Default fields
   var tpduType = SMS_TPDU_TYPE.smsSubmit
   var mssgRefNumber = SMS_REF_NUMB.automatic

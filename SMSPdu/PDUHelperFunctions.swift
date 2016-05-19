@@ -107,6 +107,14 @@ func indexOfFirstCRCharacter(smsReceived: String) -> Int {
   return indexOfChar
 }
 
+func stringLenghtInOctets(string: String) -> String {
+  
+  let charCount = string.characters.count
+  let octetLenght = charCount / 2
+  
+  return String(octetLenght)
+}
+
 func removeCharInStringAtFirstPosition(char: Character, inString string: String) -> String {
   var tempString = string
   
