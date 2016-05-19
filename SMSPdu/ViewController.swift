@@ -27,13 +27,13 @@ class ViewController: UIViewController {
     print("---------------------------------------------------------------------------------------------")
     // MARK: Encode
     let encoder = EncoderPDU(phoneNumber: phoneNumber, smscNumber: smscNumber, smsMessage: smsMessage)
-    let pduMessage = encoder.encode()
-    oPrint(pduMessage)
+    let smsMessageReceived = encoder.encode()
+    oPrint(smsMessageReceived)
     print("---------------------------------------------------------------------------------------------")
 
     // MARK: Decode
-    let decoder = DecoderPDU()
-    decoder.smsMssg = pduMessage
+    let decoder = DecoderPDU(smsMssg: smsMessageReceived)
+//    decoder.smsMssg = pduMessage
     let mssgTuple = decoder.decode()
     aPrint(mssgTuple)
   }

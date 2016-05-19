@@ -11,19 +11,11 @@ import Foundation
 class DecoderPDU {
   
   // MARK: - Properties -
-//  let tpduLenghtIndexStart = 0
-//  let tpduLenghtIndexEnd = 1
-//  let pduMssgIndexStart = 2
-  
   var smsMssg = ""
   var pduMssg = ""
   var smsMssgBody = ""
   
   // MARK: - Inits -
-  init() {
-    
-  }
-  
   init(smsMssg: String) {
     self.smsMssg = smsMssg
   }
@@ -31,22 +23,20 @@ class DecoderPDU {
   // MARK: - Public -
   func decode() -> (senderSMSCNumber: String, senderPhoneNum: String, senderMssg: String) {
     
-    
-    let pduLenghtAndMssgTuple = extractPDUPartsFromSMS(self.smsMssg)
-    
-    let pduMssg = pduLenghtAndMssgTuple.pduMssg
-    let tpduLenght = pduLenghtAndMssgTuple.lenghtOfPDU
+    let tpduLenghtAndPDUMssgTuple = extractPDUPartsFromSMS(self.smsMssg)
+    let pduMssg = tpduLenghtAndPDUMssgTuple.pduMssg
+    let tpduLenght = tpduLenghtAndPDUMssgTuple.lenghtOfTPDU
     
     let pduTuple = decodePDU(pduMssg, tpduLenght: Int(tpduLenght)!)
     return pduTuple
   }
   
-  func extractPDUPartsFromSMS(smsReceived: String) -> (pduMssg: String, lenghtOfPDU: String) {
+  func extractPDUPartsFromSMS(smsReceived: String) -> (pduMssg: String, lenghtOfTPDU: String) {
     let indexOfCR = indexOfFirstCRCharacter(smsReceived)
     let pduMssg = smsReceived.substringFromIndex(smsReceived.startIndex.advancedBy(indexOfCR + 1))
-    let lenghtOfPDU = lenghtOfPDUInHex(smsReceived, indexOfCR: indexOfCR)
+    let lenghtOfTPDU = lenghtOfPDUInHex(smsReceived, indexOfCR: indexOfCR)
     
-    return (pduMssg, lenghtOfPDU)
+    return (pduMssg, lenghtOfTPDU)
   }
   
   func lenghtOfPDUInHex(smsReceived: String, indexOfCR: Int) -> String {
@@ -88,12 +78,4 @@ class DecoderPDU {
     let tpduTuple = TPDU().decomposeTPDUPart(tpduString)
     return tpduTuple
   }
-  
-//  func tpduLenght(smsMssg: String) -> Int {
-//    return Int(smsMssg[tpduLenghtIndexStart...tpduLenghtIndexEnd])!
-//  }
-  
-//  func pduMessage(smsMssg: String) -> String {
-//    return smsMssg[pduMssgIndexStart...smsMssg.characters.count-1]
-//  }
 }

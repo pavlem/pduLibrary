@@ -22,13 +22,7 @@ class EncoderPDU {
   var smsMessage = ""
   
   
-  // MARK: - Inits -
-  init() {
-    phoneNumber = phoneNumberDefault
-    smscNumber = smscNumberDefault
-    smsMessage = smsMessageDefault
-  }
-  
+  // MARK: - Inits -  
   init (phoneNumber: String, smscNumber: String, smsMessage: String) {
     self.phoneNumber = phoneNumber
     self.smscNumber = smscNumber
