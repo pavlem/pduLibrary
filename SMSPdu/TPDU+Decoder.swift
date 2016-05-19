@@ -9,7 +9,7 @@
 import Foundation
 
 extension TPDU {
-    
+  
   func decomposeTPDUPart(tpduPart: String) -> (tpduType: String, mssgRefNumber: String, lenghtOfDestPhoneNum: String, typeOfPhoneNum: String, destPhoneNumber: String, protocolIdentifier: String, dataCodeScheme: String, lenghtSMSBodyInSeptets: String, smsBody: String) {
     
     // The First Sub-field: First Octet of the TPDU
@@ -64,7 +64,7 @@ extension TPDU {
     let smsBodyS = smsBodyLenghtE + 1
     let smsBodyE = tpduPart.characters.count - 1
     var smsBody = String()
-
+    
     if emptySMSMssBody(tpduPart, startIndexOfMssgBody: smsBodyS) {
       smsBody = ""
     } else {
@@ -88,7 +88,7 @@ extension TPDU {
     let lenght = lenghtStringHex.hexaToInt
     var phoneNumbReversed = tpduPart[tpduPartStartPhoneNumberIndex...tpduPart.characters.count - 1]
     phoneNumbReversed = phoneNumbReversed[0...lenghtStringHex.hexaToInt]
-
+    
     let phoneNumbReveresedArray = phoneNumbReversed.pairs
     let switchedArray = switchCharPairsForEachElement(phoneNumbReveresedArray)
     
@@ -103,50 +103,61 @@ extension TPDU {
   }
   
   func decodeSMSMssgBodyFromtext(text:String) -> String {
-    var arrayOfBin = [String]()
-    let arrayOfHex = text.pairs
     
-    for hex in arrayOfHex {
-      var bin = hex.hexaToBinary
-      
-      // Pad (fix) missing zeroes
-      while bin.characters.count < 8 {
-        bin = "0" + bin
-      }
-      
-      arrayOfBin.append(bin)
-    }
-    
-    arrayOfBin = arrayOfBin.reverse()
-    
-    var string = arrayOfBin.joinWithSeparator("")
-    
-    let zeroesToRemove = string.characters.count % 7
-    
-    string = (string as NSString).substringFromIndex(zeroesToRemove) // "
-    
-    var septets = string.septets
-    septets = septets.reverse()
-    
-    // FIX for the last element surplus (all zeroes) 
-    if septets.last == "0000000" {
-      septets.removeLast()
-    }
-    
-    var finalString = ""
-    for septet in septets {
-      
-      let binary = septet
-      let number = strtoul(binary, nil, 2)
-      
-      let x = UInt32(number)
-      
-      finalString.append(UnicodeScalar(x))
-    }
+    let binArrayOctets = convertSMSBodyToBinArrayOfOctetsAndReverseIt(text)
+    let binArraySeptets = convertBinArrayOfOctetsToBinArraySeptets(binArrayOctets)
+    let finalString = decodeBinArrayOfSeptetsToUnicode(binArraySeptets)
     
     return finalString
   }
   
 }
 
+func convertSMSBodyToBinArrayOfOctetsAndReverseIt(text: String) -> [String] {
+  
+  var arrayOfBin = [String]()
+  let arrayOfHex = text.pairs
+  
+  for hex in arrayOfHex {
+    var bin = hex.hexaToBinary
+    
+    // Pad (fix) missing zeroes
+    while bin.characters.count < 8 {
+      bin = "0" + bin
+    }
+    
+    arrayOfBin.append(bin)
+  }
+  
+  arrayOfBin = arrayOfBin.reverse()
+  return arrayOfBin
+}
 
+func convertBinArrayOfOctetsToBinArraySeptets(binArrayOctets: [String]) -> [String] {
+  var string = binArrayOctets.joinWithSeparator("")
+  
+  let zeroesToRemove = string.characters.count % 7
+  
+  string = (string as NSString).substringFromIndex(zeroesToRemove)
+  
+  var septets = string.septets
+  septets = septets.reverse()
+  return septets
+}
+
+func decodeBinArrayOfSeptetsToUnicode(binArraySeptets: [String]) -> String {
+  var finalString = ""
+ 
+  for septet in binArraySeptets {
+    let binary = septet
+    let number = strtoul(binary, nil, 2)
+    
+    let x = UInt32(number)
+    
+    if x != 0 {
+      finalString.append(UnicodeScalar(x))
+    }
+  }
+  
+  return finalString
+}
