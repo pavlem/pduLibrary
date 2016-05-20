@@ -145,12 +145,12 @@ func allIndexesOfAllEscapedSpecialCharacters(inString string: String) -> [Int] {
 
 
 
-func stringLenghtInOctets(string: String) -> String {
+func stringlengthInOctets(string: String) -> String {
   
   let charCount = string.characters.count
-  let octetLenght = charCount / 2
+  let octetlength = charCount / 2
   
-  return String(octetLenght)
+  return String(octetlength)
 }
 
 func removeCharInStringAtFirstPosition(char: Character, inString string: String) -> String {
@@ -162,9 +162,9 @@ func removeCharInStringAtFirstPosition(char: Character, inString string: String)
   return tempString
 }
 
-func textLenghtInOctetsInHex(text: String) -> String {
-  let hexLenght = String(text.characters.count / 2).decimalToHexa2CharPadding
-  return hexLenght
+func textlengthInOctetsInHex(text: String) -> String {
+  let hexlength = String(text.characters.count / 2).decimalToHexa2CharPadding
+  return hexlength
 }
 
 func convertBinToHex(binArray: [String]) -> [String] {

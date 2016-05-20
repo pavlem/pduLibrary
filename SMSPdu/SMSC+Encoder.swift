@@ -20,7 +20,7 @@ extension SMSC {
   func encodeSMSCPart() -> String {
     let smscNumber = numberInPDUFormat(self.smscNumber)
     let smscNumberType = self.smscNumberType
-    let octetLenghtOfTwoSubfields = textLenghtInOctetsInHex(smscNumber + smscNumberType)
-    return octetLenghtOfTwoSubfields + smscNumberType + smscNumber
+    let octetlengthOfTwoSubfields = textlengthInOctetsInHex(smscNumber + smscNumberType)
+    return octetlengthOfTwoSubfields + smscNumberType + smscNumber
   }
 }

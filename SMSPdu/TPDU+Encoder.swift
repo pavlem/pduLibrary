@@ -13,8 +13,8 @@ extension TPDU {
   // MARK: - Public
   func encodeTPDUPart() -> String {
     
-    let numberLenght = String(removePlusCharacterAtFirstPosition(phoneNumber).characters.count).decimalToHexa2CharPadding
-    let finalTPDUString = self.tpduType + self.mssgRefNumber + numberLenght + self.numberType + numberInPDUFormat(phoneNumber) + self.protocolIdent + self.dataCodingScheme + smsBodyLengthInHex(textMessage) + encode7BitSMSMssgBodyFromtext(textMessage)
+    let numberlength = String(removePlusCharacterAtFirstPosition(phoneNumber).characters.count).decimalToHexa2CharPadding
+    let finalTPDUString = self.tpduType + self.mssgRefNumber + numberlength + self.numberType + numberInPDUFormat(phoneNumber) + self.protocolIdent + self.dataCodingScheme + smsBodyLengthInHex(textMessage) + encode7BitSMSMssgBodyFromtext(textMessage)
     
     return finalTPDUString
   }
@@ -22,9 +22,9 @@ extension TPDU {
   func smsBodyLengthInHex(text: String) -> String {
     let smsBodyArray = stringToBinaryArray(text, withPadSize: 7)
     let smsBodyString = smsBodyArray.joinWithSeparator("")
-    let lenght = String(smsBodyString.characters.count/7)
-    let hexlenght = lenght.decimalToHexa2CharPadding
-    return hexlenght
+    let length = String(smsBodyString.characters.count/7)
+    let hexlength = length.decimalToHexa2CharPadding
+    return hexlength
   }
   
   // MARK: - Private

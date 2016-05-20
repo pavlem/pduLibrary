@@ -14,12 +14,12 @@ extension SMSC {
   func decomposeSMSCPart(smsc: String) -> (String, String, String) {
     
     // The First Sub-field: Length of the Second and Third Sub-fields
-    let lenghtSMSCSecondAndThirdFieldS = 0
-    let lenghtSMSCSecondAndThirdFieldE = 1
-    let lenghtSMSCSecondAndThirdField = smsc[lenghtSMSCSecondAndThirdFieldS...lenghtSMSCSecondAndThirdFieldE]
+    let lengthSMSCSecondAndThirdFieldS = 0
+    let lengthSMSCSecondAndThirdFieldE = 1
+    let lengthSMSCSecondAndThirdField = smsc[lengthSMSCSecondAndThirdFieldS...lengthSMSCSecondAndThirdFieldE]
     
     // The Second Sub-field: Type of SMSC Number
-    let typeOfPhoneNumS = lenghtSMSCSecondAndThirdFieldE + 1
+    let typeOfPhoneNumS = lengthSMSCSecondAndThirdFieldE + 1
     let typeOfPhoneNumE = typeOfPhoneNumS + 1
     let typeOfPhoneNum = smsc[typeOfPhoneNumS...typeOfPhoneNumE]
     
@@ -28,7 +28,7 @@ extension SMSC {
     let smscNumbE = smsc.characters.count - 1
     let smscNumb = smsc[smscNumbS...smscNumbE]
     
-    return (lenghtSMSCSecondAndThirdField, typeOfPhoneNum, smscNumb)
+    return (lengthSMSCSecondAndThirdField, typeOfPhoneNum, smscNumb)
   }
   
   func senderSMSCNumber(number: String, numberType: String) -> String {

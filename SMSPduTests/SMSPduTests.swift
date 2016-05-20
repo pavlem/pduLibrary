@@ -70,16 +70,16 @@ class SMSPduTests: XCTestCase {
     XCTAssert("01000B915892214365F7000021493a283d0795c3f33c88fe06cdcb6e32885ec6d341edf27c1e3e97e72e" == tpduString3)
   }
   
-  func testTPDUPartLenght() {
-    XCTAssert("24" == stringLenghtInOctets("01000B915892214365F700000Cc8329bfd06dddf72363904"), "🍊🍊, TPDU lenght not correct")
-    XCTAssert("39" == stringLenghtInOctets("01000B915892214365F700001Dc8329bfd06dddf723619c47ccbcb6d50123eafb741f972181d02"), "🍊🍊, TPDU lenght not correct")
-    XCTAssert("52" == stringLenghtInOctets("01000B915892214365F700002C493a283d07d9cbf23cc85e96e741e5f03c0fa2bf41ec7258ee06ddd16537a8fda6a7ed617a990c"), "🍊🍊, TPDU lenght not correct")
+  func testTPDUPartlength() {
+    XCTAssert("24" == stringlengthInOctets("01000B915892214365F700000Cc8329bfd06dddf72363904"), "🍊🍊, TPDU length not correct")
+    XCTAssert("39" == stringlengthInOctets("01000B915892214365F700001Dc8329bfd06dddf723619c47ccbcb6d50123eafb741f972181d02"), "🍊🍊, TPDU length not correct")
+    XCTAssert("52" == stringlengthInOctets("01000B915892214365F700002C493a283d07d9cbf23cc85e96e741e5f03c0fa2bf41ec7258ee06ddd16537a8fda6a7ed617a990c"), "🍊🍊, TPDU length not correct")
   }
   
   func testSMSBodyLengthInHex() {
-    XCTAssert("2C" == TPDU().smsBodyLengthInHex("It is very very easy to learn when motivated"), "🍊🍊, SMS body lenght not correct")
-    XCTAssert("0C" == TPDU().smsBodyLengthInHex("Hello world!"), "🍊🍊, SMS body lenght not correct")
-    XCTAssert("05" == TPDU().smsBodyLengthInHex("Lorem"), "🍊🍊, SMS body lenght not correct")
+    XCTAssert("2C" == TPDU().smsBodyLengthInHex("It is very very easy to learn when motivated"), "🍊🍊, SMS body length not correct")
+    XCTAssert("0C" == TPDU().smsBodyLengthInHex("Hello world!"), "🍊🍊, SMS body length not correct")
+    XCTAssert("05" == TPDU().smsBodyLengthInHex("Lorem"), "🍊🍊, SMS body length not correct")
   }
   
   func test7BitEncoding() {
@@ -129,38 +129,38 @@ class SMSPduTests: XCTestCase {
   func testDecomposeTPDUPart() {
     var decPDU = TPDU().decomposeTPDUPart("0100099183718254F600000EC8329BFD0699E5E9B29B1C0A01")
     
-    let firstSixFields1 = (decPDU.tpduType, decPDU.mssgRefNumber, decPDU.lenghtOfDestPhoneNum, decPDU.typeOfPhoneNum, decPDU.destPhoneNumber, decPDU.protocolIdentifier)
-    let lastThreFields1 = (decPDU.dataCodeScheme, decPDU.lenghtSMSBodyInSeptets, decPDU.smsBody)
+    let firstSixFields1 = (decPDU.tpduType, decPDU.mssgRefNumber, decPDU.lengthOfDestPhoneNum, decPDU.typeOfPhoneNum, decPDU.destPhoneNumber, decPDU.protocolIdentifier)
+    let lastThreFields1 = (decPDU.dataCodeScheme, decPDU.lengthSMSBodyInSeptets, decPDU.smsBody)
     XCTAssert(("01", "00", "09", "91", "83718254F6", "00") == firstSixFields1, "🍊🍊, Decomposing of TPDU not correct")
     XCTAssert(("00", "0E", "C8329BFD0699E5E9B29B1C0A01") == lastThreFields1, "🍊🍊, Decomposing of TPDU not correct")
     
     decPDU = TPDU().decomposeTPDUPart("010008915806303300000BCCB7BCDC0625E1F37A1B")
-    let firstSixFields2 = (decPDU.tpduType, decPDU.mssgRefNumber, decPDU.lenghtOfDestPhoneNum, decPDU.typeOfPhoneNum, decPDU.destPhoneNumber, decPDU.protocolIdentifier)
-    let lastThreFields2 = (decPDU.dataCodeScheme, decPDU.lenghtSMSBodyInSeptets, decPDU.smsBody)
+    let firstSixFields2 = (decPDU.tpduType, decPDU.mssgRefNumber, decPDU.lengthOfDestPhoneNum, decPDU.typeOfPhoneNum, decPDU.destPhoneNumber, decPDU.protocolIdentifier)
+    let lastThreFields2 = (decPDU.dataCodeScheme, decPDU.lengthSMSBodyInSeptets, decPDU.smsBody)
     XCTAssert(("01", "00", "08", "91", "58063033", "00") == firstSixFields2, "🍊🍊, Decomposing of TPDU not correct")
     XCTAssert(("00", "0B", "CCB7BCDC0625E1F37A1B") == lastThreFields2, "🍊🍊, Decomposing of TPDU not correct")
     
     decPDU = TPDU().decomposeTPDUPart("01000B915892214365F7000000")
-    let firstSixFields3 = (decPDU.tpduType, decPDU.mssgRefNumber, decPDU.lenghtOfDestPhoneNum, decPDU.typeOfPhoneNum, decPDU.destPhoneNumber, decPDU.protocolIdentifier)
-    let lastThreFields3 = (decPDU.dataCodeScheme, decPDU.lenghtSMSBodyInSeptets, decPDU.smsBody)
+    let firstSixFields3 = (decPDU.tpduType, decPDU.mssgRefNumber, decPDU.lengthOfDestPhoneNum, decPDU.typeOfPhoneNum, decPDU.destPhoneNumber, decPDU.protocolIdentifier)
+    let lastThreFields3 = (decPDU.dataCodeScheme, decPDU.lengthSMSBodyInSeptets, decPDU.smsBody)
     XCTAssert(("01", "00", "0B", "91", "5892214365F7", "00") == firstSixFields3, "🍊🍊, Decomposing of TPDU not correct")
     XCTAssert(("00", "00", "") == lastThreFields3, "🍊🍊, Decomposing of TPDU not correct")
   }
   
-  func testTpduLenght() {
+  func testTpdulength() {
     
     let decoderPDU1 = DecoderPDU(smsMssg: "+CMT:,23\r05915822323301000A91836186983900000CCCB7BCDC06A5E1F37A3B04")
-    XCTAssert(23 == Int(decoderPDU1.tpduLenghtInOctets(decoderPDU1.smsMssg, crIndex: 8)), "🍊🍊, Lenght of TPDU not correct")
+    XCTAssert(23 == Int(decoderPDU1.tpdulengthInOctets(decoderPDU1.smsMssg, crIndex: 8)), "🍊🍊, length of TPDU not correct")
     let decoderPDU2 = DecoderPDU(smsMssg: "+CMT:,41\r0691589200000001000A915892214365000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E")
-    XCTAssert(41 == Int(decoderPDU1.tpduLenghtInOctets(decoderPDU2.smsMssg, crIndex: 8)), "🍊🍊, Lenght of TPDU not correct")
+    XCTAssert(41 == Int(decoderPDU1.tpdulengthInOctets(decoderPDU2.smsMssg, crIndex: 8)), "🍊🍊, length of TPDU not correct")
     let decoderPDU3 = DecoderPDU(smsMssg: "+CMT:,17\r0691589200000001000A915892214365000005CCB7BCDC06")
-    XCTAssert(17 == Int(decoderPDU1.tpduLenghtInOctets(decoderPDU3.smsMssg, crIndex: 8)), "🍊🍊, Lenght of TPDU not correct")
+    XCTAssert(17 == Int(decoderPDU1.tpdulengthInOctets(decoderPDU3.smsMssg, crIndex: 8)), "🍊🍊, length of TPDU not correct")
   }
   
   func testTPDUMssgExtract() {
-    XCTAssert(("0691589200000001000A915892214365000005CCB7BCDC06", "17") == DecoderPDU().extractPDUPartsFromSMS("+CMT:,17\r0691589200000001000A915892214365000005CCB7BCDC06"), "🍊🍊, TPDU part and TPDU lenght not correct")
-    XCTAssert(("0691589200000001000A915892214365000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E", "41") == DecoderPDU().extractPDUPartsFromSMS("+CMT:,41\r0691589200000001000A915892214365000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E"), "🍊🍊, TPDU part and TPDU lenght not correct")
-    XCTAssert(("05915822323301000A91836186983900000CCCB7BCDC06A5E1F37A3B04", "23") == DecoderPDU().extractPDUPartsFromSMS("+CMT:,23\r05915822323301000A91836186983900000CCCB7BCDC06A5E1F37A3B04"), "🍊🍊, TPDU part and TPDU lenght not correct")
+    XCTAssert(("0691589200000001000A915892214365000005CCB7BCDC06", "17") == DecoderPDU().extractPDUPartsFromSMS("+CMT:,17\r0691589200000001000A915892214365000005CCB7BCDC06"), "🍊🍊, TPDU part and TPDU length not correct")
+    XCTAssert(("0691589200000001000A915892214365000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E", "41") == DecoderPDU().extractPDUPartsFromSMS("+CMT:,41\r0691589200000001000A915892214365000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E"), "🍊🍊, TPDU part and TPDU length not correct")
+    XCTAssert(("05915822323301000A91836186983900000CCCB7BCDC06A5E1F37A3B04", "23") == DecoderPDU().extractPDUPartsFromSMS("+CMT:,23\r05915822323301000A91836186983900000CCCB7BCDC06A5E1F37A3B04"), "🍊🍊, TPDU part and TPDU length not correct")
   }
   
   func testSMSCNumberDecoder() {
@@ -170,9 +170,9 @@ class SMSPduTests: XCTestCase {
   }
   
   func testDestinationNumberDecoder() {
-    XCTAssert("+8529123111" == TPDU().destinationPhoneNumber("01000A91589221131100000EC8329BFD065D9F522631140A01", lenghtStringHex: "0A", typeOfPhoneNumber: "91"), "🍊🍊, receiver number part not correctly decoded")
-    XCTAssert("+85291234567" == TPDU().destinationPhoneNumber("01000B915892214365F7000000", lenghtStringHex: "0B", typeOfPhoneNumber: "91"), "🍊🍊, receiver number part not correctly decoded")
-    XCTAssert("+8529122255" == TPDU().destinationPhoneNumber("01000A91589221225500000EC8329BFD065D9F522631140A01", lenghtStringHex: "0A", typeOfPhoneNumber: "91"), "🍊🍊, receiver number part not correctly decoded")
+    XCTAssert("+8529123111" == TPDU().destinationPhoneNumber("01000A91589221131100000EC8329BFD065D9F522631140A01", lengthStringHex: "0A", typeOfPhoneNumber: "91"), "🍊🍊, receiver number part not correctly decoded")
+    XCTAssert("+85291234567" == TPDU().destinationPhoneNumber("01000B915892214365F7000000", lengthStringHex: "0B", typeOfPhoneNumber: "91"), "🍊🍊, receiver number part not correctly decoded")
+    XCTAssert("+8529122255" == TPDU().destinationPhoneNumber("01000A91589221225500000EC8329BFD065D9F522631140A01", lengthStringHex: "0A", typeOfPhoneNumber: "91"), "🍊🍊, receiver number part not correctly decoded")
   }
   
   func testData7BitDecoder() {
@@ -242,13 +242,13 @@ class SMSPduTests: XCTestCase {
     XCTAssert("213fff" == removeCharInStringAtFirstPosition("@", inString: "@213fff"), "🍊🍊, Desired char not removed" )
   }
   
-  func testTextLenghtInOctetsInHex() {
-    XCTAssert("07" == textLenghtInOctetsInHex("5892000000F091"), "🍊🍊, Hex Lenght not correct" )
-    XCTAssert("06" == textLenghtInOctetsInHex("5892000000F0"), "🍊🍊, Hex Lenght not correct" )
-    XCTAssert("05" == textLenghtInOctetsInHex("5892000000"), "🍊🍊, Hex Lenght not correct" )
-    XCTAssert("0A" == textLenghtInOctetsInHex("5892000000F091334321"), "🍊🍊, Hex Lenght not correct" )
-    XCTAssert("0F" == textLenghtInOctetsInHex("5892000000F0913343216622839199"), "🍊🍊, Hex Lenght not correct" )
-    XCTAssert("11" == textLenghtInOctetsInHex("5892000000F091334321662283919912wq"), "🍊🍊, Hex Lenght not correct" )
+  func testTextlengthInOctetsInHex() {
+    XCTAssert("07" == textlengthInOctetsInHex("5892000000F091"), "🍊🍊, Hex length not correct" )
+    XCTAssert("06" == textlengthInOctetsInHex("5892000000F0"), "🍊🍊, Hex length not correct" )
+    XCTAssert("05" == textlengthInOctetsInHex("5892000000"), "🍊🍊, Hex length not correct" )
+    XCTAssert("0A" == textlengthInOctetsInHex("5892000000F091334321"), "🍊🍊, Hex length not correct" )
+    XCTAssert("0F" == textlengthInOctetsInHex("5892000000F0913343216622839199"), "🍊🍊, Hex length not correct" )
+    XCTAssert("11" == textlengthInOctetsInHex("5892000000F091334321662283919912wq"), "🍊🍊, Hex length not correct" )
   }
   
   func testConvertBinToHex() {

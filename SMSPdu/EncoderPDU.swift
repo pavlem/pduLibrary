@@ -8,8 +8,8 @@
 
 
 //TODO: Implement
-// ANDROID -> "+CMT:," + "tpdu lenght" + "\r" + "PDU......"
-// SB -> "AT+CMGS:" + "tpdu lenght" + "\r" + "PDU......" + "\u001A"
+// ANDROID -> "+CMT:," + "tpdu length" + "\r" + "PDU......"
+// SB -> "AT+CMGS:" + "tpdu length" + "\r" + "PDU......" + "\u001A"
 
 import Foundation
 
@@ -40,7 +40,7 @@ class EncoderPDU {
   // MARK: - Public
   func encode() -> String {
     let prefix = prefixAndroidAP
-    let finalString = prefix + stringLenghtInOctets(tpduPartEncoded()) + "\r" + encodeToPDU()
+    let finalString = prefix + stringlengthInOctets(tpduPartEncoded()) + "\r" + encodeToPDU()
    
     return finalString
   }

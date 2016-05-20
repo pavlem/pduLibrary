@@ -10,7 +10,7 @@ import Foundation
 
 extension TPDU {
   
-  func decomposeTPDUPart(tpduPart: String) -> (tpduType: String, mssgRefNumber: String, lenghtOfDestPhoneNum: String, typeOfPhoneNum: String, destPhoneNumber: String, protocolIdentifier: String, dataCodeScheme: String, lenghtSMSBodyInSeptets: String, smsBody: String) {
+  func decomposeTPDUPart(tpduPart: String) -> (tpduType: String, mssgRefNumber: String, lengthOfDestPhoneNum: String, typeOfPhoneNum: String, destPhoneNumber: String, protocolIdentifier: String, dataCodeScheme: String, lengthSMSBodyInSeptets: String, smsBody: String) {
     
     // The First Sub-field: First Octet of the TPDU
     let tpduS = tpduStartIndex
@@ -23,25 +23,25 @@ extension TPDU {
     let mssgRefNumber = tpduPart[mssgRefNumberS...mssgRefNumberE]
     
     // The Third Sub-field: Length of the Destination Phone Number
-    let lenghtOfDestPhoneNumS = mssgRefNumberE + 1
-    let lenghtOfDestPhoneNumE = lenghtOfDestPhoneNumS + 1
-    let lenghtOfDestPhoneNum = tpduPart[lenghtOfDestPhoneNumS...lenghtOfDestPhoneNumE]
+    let lengthOfDestPhoneNumS = mssgRefNumberE + 1
+    let lengthOfDestPhoneNumE = lengthOfDestPhoneNumS + 1
+    let lengthOfDestPhoneNum = tpduPart[lengthOfDestPhoneNumS...lengthOfDestPhoneNumE]
     
     // The Fourth Sub-field: Type of the Destination Phone Number
-    let typeOfPhoneNumS = lenghtOfDestPhoneNumE + 1
+    let typeOfPhoneNumS = lengthOfDestPhoneNumE + 1
     let typeOfPhoneNumE = typeOfPhoneNumS + 1
     let typeOfPhoneNum = tpduPart[typeOfPhoneNumS...typeOfPhoneNumE]
     
     // The Fifth Sub-field: Destination Phone Number
-    var lenghtOfDestPhoneNumInDigitsInt = lenghtOfDestPhoneNum.hexaToInt
+    var lengthOfDestPhoneNumInDigitsInt = lengthOfDestPhoneNum.hexaToInt
     
     let destPhoneNumberS = typeOfPhoneNumE + 1
-    var destPhoneNumberE = destPhoneNumberS + lenghtOfDestPhoneNumInDigitsInt
+    var destPhoneNumberE = destPhoneNumberS + lengthOfDestPhoneNumInDigitsInt
     
     var destPhoneNumber = tpduPart[destPhoneNumberS..<destPhoneNumberE]
     if destPhoneNumber.characters.last == "F" {
-      lenghtOfDestPhoneNumInDigitsInt += 1
-      destPhoneNumberE = destPhoneNumberS + lenghtOfDestPhoneNumInDigitsInt
+      lengthOfDestPhoneNumInDigitsInt += 1
+      destPhoneNumberE = destPhoneNumberS + lengthOfDestPhoneNumInDigitsInt
       destPhoneNumber = tpduPart[destPhoneNumberS..<destPhoneNumberE]
     }
     
@@ -56,12 +56,12 @@ extension TPDU {
     let dataCodeScheme = tpduPart[dataCodeSchemeS...dataCodeSchemeE]
     
     // The Eighth Sub-field: Length of the SMS Message Body
-    let smsBodyLenghtS = dataCodeSchemeE + 1
-    let smsBodyLenghtE = smsBodyLenghtS + 1
-    let smsBodyInSeptets = tpduPart[smsBodyLenghtS...smsBodyLenghtE]
+    let smsBodylengthS = dataCodeSchemeE + 1
+    let smsBodylengthE = smsBodylengthS + 1
+    let smsBodyInSeptets = tpduPart[smsBodylengthS...smsBodylengthE]
     
     // The Ninth Sub-field: SMS Message Body
-    let smsBodyS = smsBodyLenghtE + 1
+    let smsBodyS = smsBodylengthE + 1
     let smsBodyE = tpduPart.characters.count - 1
     var smsBody = String()
     
@@ -72,7 +72,7 @@ extension TPDU {
     }
     
     // Final result
-    return (tpduType, mssgRefNumber, lenghtOfDestPhoneNum, typeOfPhoneNum, destPhoneNumber, protocolIdentifier, dataCodeScheme, smsBodyInSeptets, smsBody)
+    return (tpduType, mssgRefNumber, lengthOfDestPhoneNum, typeOfPhoneNum, destPhoneNumber, protocolIdentifier, dataCodeScheme, smsBodyInSeptets, smsBody)
   }
   
   func emptySMSMssBody(tpduPart: String, startIndexOfMssgBody: Int) -> Bool {
@@ -83,17 +83,17 @@ extension TPDU {
     }
   }
   
-  func destinationPhoneNumber(tpduPart: String, lenghtStringHex: String, typeOfPhoneNumber: String) -> String {
+  func destinationPhoneNumber(tpduPart: String, lengthStringHex: String, typeOfPhoneNumber: String) -> String {
     
-    let lenght = lenghtStringHex.hexaToInt
+    let length = lengthStringHex.hexaToInt
     var phoneNumbReversed = tpduPart[tpduPartStartPhoneNumberIndex...tpduPart.characters.count - 1]
-    phoneNumbReversed = phoneNumbReversed[0...lenghtStringHex.hexaToInt]
+    phoneNumbReversed = phoneNumbReversed[0...lengthStringHex.hexaToInt]
     
     let phoneNumbReveresedArray = phoneNumbReversed.pairs
     let switchedArray = switchCharPairsForEachElement(phoneNumbReveresedArray)
     
     var phoneNumb = switchedArray.joinWithSeparator("")
-    phoneNumb = phoneNumb[0..<lenght]
+    phoneNumb = phoneNumb[0..<length]
     
     if typeOfPhoneNumber == SMS_NUMB_TYPE.international {
       phoneNumb = "+" + phoneNumb

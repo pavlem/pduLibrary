@@ -61,8 +61,8 @@
 
 /* Begin PBXFileReference section */
 		9E0A30F41CE37561008CFDAD /* Int+PDUExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+PDUExtension.swift"; sourceTree = "<group>"; };
-		9E3C73231CE494C6005D7975 /* EncoderPDU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EncoderPDU.swift; sourceTree = "<group>"; };
-		9E3C73261CE494D3005D7975 /* DecoderPDU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecoderPDU.swift; sourceTree = "<group>"; };
+		9E3C73231CE494C6005D7975 /* EncoderPDU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = EncoderPDU.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		9E3C73261CE494D3005D7975 /* DecoderPDU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DecoderPDU.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9E3C73291CE4C5A1005D7975 /* TPDU+Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TPDU+Decoder.swift"; sourceTree = "<group>"; };
 		9E5D1C2C1CE331540061A56A /* SMSPdu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SMSPdu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E5D1C2F1CE331540061A56A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -79,11 +79,11 @@
 		9E5D1C511CE331540061A56A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E5D1C5D1CE331780061A56A /* SMSConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSConstants.swift; sourceTree = "<group>"; };
 		9E5D1C601CE333F70061A56A /* SMSC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMSC.swift; sourceTree = "<group>"; };
-		9E5D1C641CE336390061A56A /* PDUHelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDUHelperFunctions.swift; sourceTree = "<group>"; };
+		9E5D1C641CE336390061A56A /* PDUHelperFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = PDUHelperFunctions.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9E5D1C671CE336740061A56A /* String+PDUExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+PDUExtension.swift"; sourceTree = "<group>"; };
 		9E5D1C6A1CE369190061A56A /* TPDU.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPDU.swift; sourceTree = "<group>"; };
 		9E62C8D71CE9CF5700A4AC98 /* SMSC+Encoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SMSC+Encoder.swift"; sourceTree = "<group>"; };
-		9E62C8DA1CE9CF9300A4AC98 /* SMSC+Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SMSC+Decoder.swift"; sourceTree = "<group>"; };
+		9E62C8DA1CE9CF9300A4AC98 /* SMSC+Decoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = "SMSC+Decoder.swift"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9E62C8DD1CE9D57100A4AC98 /* TPDU+Encoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "TPDU+Encoder.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
