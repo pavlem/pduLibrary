@@ -36,7 +36,7 @@ class DecoderPDU {
   }
   
   func extractPDUPartsFromSMS(smsReceived: String) -> (pduMssg: String, lenghtOfTPDU: String) {
-    let crIndex = indexOfFirstCRCharacter(smsReceived)
+    let crIndex = indexOfFirstEscapedSpecialCharacter("\r", string: smsReceived)
     let pduMssg = smsReceived.substringFromIndex(smsReceived.startIndex.advancedBy(crIndex + 1))
     let tpduLenght = tpduLenghtInOctets(smsReceived, crIndex: crIndex)
     

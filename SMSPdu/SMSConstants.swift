@@ -36,8 +36,6 @@ import Foundation
 // 21           -> Length of the SMS Message Body
 // 493A283D...  -> SMS Message Body
 
-
-
 struct SMS_TPDU_TYPE {
   static let smsSubmit = "01"
 }

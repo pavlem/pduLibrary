@@ -94,18 +94,56 @@ func removePlusCharacterAtFirstPosition(string: String) -> String {
 }
 
 // MARK: - Global functions
-func indexOfFirstCRCharacter(smsReceived: String) -> Int {
+func indexOfFirstEscapedSpecialCharacter(specialChar: Character, string: String) -> Int {
   
   var indexOfChar = -1
   
-  for (index, char) in smsReceived.characters.enumerate() {
+  for (index, char) in string.characters.enumerate() {
     if char == "\r" {
       indexOfChar = index
+      return indexOfChar
     }
   }
   
   return indexOfChar
 }
+
+
+func allIndexesOfEscapedSpecialCharacter(specialChar: Character, inString string: String) -> [Int] {
+  
+  var indexOfChar = -1
+  var arrayOfSpecialChars = [Int]()
+  
+  
+  for (index, char) in string.characters.enumerate() {
+    if char == specialChar {
+      indexOfChar = index
+      arrayOfSpecialChars.append(indexOfChar)
+    }
+  }
+  
+  return arrayOfSpecialChars
+}
+
+
+func allIndexesOfAllEscapedSpecialCharacters(inString string: String) -> [Int] {
+  
+  var arrayOfSpecialChars = [Int]()
+  let specialChars: [Character] = ["\0", "\\", "\t", "\n", "\r", "\"", "\'"]
+  
+  for (index, char) in string.characters.enumerate() {
+    for specialChar in specialChars {
+      if char == specialChar {
+        arrayOfSpecialChars.append(index)
+      }
+    }
+  }
+  
+  return arrayOfSpecialChars
+}
+
+
+
 
 func stringLenghtInOctets(string: String) -> String {
   

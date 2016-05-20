@@ -119,7 +119,7 @@ class SMSPduTests: XCTestCase {
     XCTAssert("0100099158882252F5000012CCB7BCDC06A5E1F37A1B549ED343A110" == DecoderPDU().tpdu("069158924433F30100099158882252F5000012CCB7BCDC06A5E1F37A1B549ED343A110", smscPart: "069158924433F3"), "🍊🍊, TPDU part not extracted")
     XCTAssert("0100099168892252F5000019493A283D07D9CBF23CA81C9EE741F437685E2E874221" == DecoderPDU().tpdu("069158554433F30100099168892252F5000019493A283D07D9CBF23CA81C9EE741F437685E2E874221", smscPart: "069158554433F3"), "🍊🍊, TPDU part not extracted")
   }
-
+  
   func testDecomposeSMSCPart() {
     XCTAssert(("06","91","8822213314") == DecoderPDU().decomposeSMSC("06918822213314"), "🍊🍊, Decomposing of SMSC not correct")
     XCTAssert(("05","91","882221F1") == DecoderPDU().decomposeSMSC("0591882221F1"), "🍊🍊, Decomposing of SMSC not correct")
@@ -156,7 +156,7 @@ class SMSPduTests: XCTestCase {
     let decoderPDU3 = DecoderPDU(smsMssg: "+CMT:,17\r0691589200000001000A915892214365000005CCB7BCDC06")
     XCTAssert(17 == Int(decoderPDU1.tpduLenghtInOctets(decoderPDU3.smsMssg, crIndex: 8)), "🍊🍊, Lenght of TPDU not correct")
   }
-
+  
   func testTPDUMssgExtract() {
     XCTAssert(("0691589200000001000A915892214365000005CCB7BCDC06", "17") == DecoderPDU().extractPDUPartsFromSMS("+CMT:,17\r0691589200000001000A915892214365000005CCB7BCDC06"), "🍊🍊, TPDU part and TPDU lenght not correct")
     XCTAssert(("0691589200000001000A915892214365000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E", "41") == DecoderPDU().extractPDUPartsFromSMS("+CMT:,41\r0691589200000001000A915892214365000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E"), "🍊🍊, TPDU part and TPDU lenght not correct")
@@ -182,6 +182,27 @@ class SMSPduTests: XCTestCase {
   }
   
   // MARK: - PDU Helper Functions
+  func testSearchFirstIndexOfSpecialCharacters() {
+    XCTAssert(3 == indexOfFirstEscapedSpecialCharacter("\r", string: "123\r4567"), "🍊🍊, Index not correct")
+    XCTAssert(8 == indexOfFirstEscapedSpecialCharacter("\r", string: "+CMT:,42\r07915892000000F001000B915892214365F7000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E"), "🍊🍊, Index not correct")
+    XCTAssert(8 == indexOfFirstEscapedSpecialCharacter("\r", string: "+CMT:,42\r07915\r892000000F001000B915892214365F7000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E"), "🍊🍊, Index not correct")
+    XCTAssert(-1 == indexOfFirstEscapedSpecialCharacter("\r", string: "+CM365F7000021493A283D0795C3F33C88FE06CDCB6E32885EC6D341EDF27C1E3E97E72E"), "🍊🍊, Index not correct")
+  }
+  
+  
+  func testAllIndexesOfEscapedSpecialCharacter() {
+    XCTAssert([15] == allIndexesOfEscapedSpecialCharacter("\n", inString: "123\r4\r777\rdsfsf\nfsdsdf"))
+    XCTAssert([] == allIndexesOfEscapedSpecialCharacter("\n", inString: "123\r4\r777\rdsfsffsdsdf"))
+    XCTAssert([3,5,9] == allIndexesOfEscapedSpecialCharacter("\r", inString: "123\r4\r777\rdsfsf\nfsd\ns\nd\tf"))
+  }
+  
+  
+  func testAllIndexesOfAllEscapedSpecialCharacters() {
+    XCTAssert([1, 3, 5] == allIndexesOfAllEscapedSpecialCharacters(inString: "1\r2\r4\n"))
+    XCTAssert([3, 5, 9, 15, 19, 21, 23] == allIndexesOfAllEscapedSpecialCharacters(inString: "123\r4\r777\rdsfsf\nfsd\ns\nd\tf"))
+    XCTAssert([3, 6, 8, 10] == allIndexesOfAllEscapedSpecialCharacters(inString: "123\r4d\ns\nd\tf"))
+  }
+
   func testStringToBinaryArray() {
     XCTAssert(["1001000", "1100101", "1101100", "1101100", "1101111"] == stringToBinaryArray("Hello"), "🍊🍊, String to Binary not correct")
     XCTAssert(["1010000", "1100001", "1101011"] == stringToBinaryArray("Pak"), "🍊🍊, String to Binary not correct")
@@ -202,7 +223,7 @@ class SMSPduTests: XCTestCase {
     XCTAssert("0011" == padZerosToAString(2, string: "11"))
   }
   
-  func testnumbArrayPadLastElementForPDU() {
+  func testNumbArrayPadLastElementForPDU() {
     XCTAssert(["85", "29", "34"] == numbArrayPadLastElementForPDU(["85", "29", "34"]), "🍊🍊, Last element not padded")
     XCTAssert(["85", "3F"] == numbArrayPadLastElementForPDU(["85", "3"]), "🍊🍊, Last element not padded")
     XCTAssert(["21", "22", "34", "5F"] == numbArrayPadLastElementForPDU(["21", "22", "34", "5"]), "🍊🍊, Last element not padded")
