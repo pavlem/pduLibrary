@@ -64,12 +64,12 @@ class DecoderPDU {
   
   // MARK: - Private -
   func smsc(pduMssg: String, tpduLengthInt: Int) -> String {
-    let smscPart = pduMssg[0...pduMssg.characters.count-1 - tpduLengthInt*2]
+    let smscPart = pduMssg[0..<pduMssg.characters.count - tpduLengthInt*2]
     return smscPart
   }
   
   func tpdu(pduMssg: String, smscPart: String) -> String {
-    let tpduPart = pduMssg[smscPart.characters.count...pduMssg.characters.count-1]
+    let tpduPart = pduMssg[smscPart.characters.count..<pduMssg.characters.count]
     return tpduPart
   }
   

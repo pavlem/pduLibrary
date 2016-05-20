@@ -14,7 +14,7 @@ class ViewController: UIViewController {
   // MARK: Test Data
   let smscNumber = "+85290000000"
   let phoneNumber = "+85291234567"
-  let smsMessage = "It is easy to send text messages."
+  let smsMessage = ""
   
   override func viewDidLoad() {
     

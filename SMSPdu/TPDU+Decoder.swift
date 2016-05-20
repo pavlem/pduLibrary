@@ -81,7 +81,7 @@ extension TPDU {
   func destinationPhoneNumber(tpduPart: String, lengthStringHex: String, typeOfPhoneNumber: String) -> String {
     
     let length = lengthStringHex.hexaToInt
-    var phoneNumbReversed = tpduPart[tpduPartStartPhoneNumberIndex...tpduPart.characters.count - 1]
+    var phoneNumbReversed = tpduPart[tpduPartStartPhoneNumberIndex..<tpduPart.characters.count]
     phoneNumbReversed = phoneNumbReversed[0...lengthStringHex.hexaToInt]
     
     let phoneNumbReveresedArray = phoneNumbReversed.pairs
