@@ -64,8 +64,6 @@ class EncoderPDU {
     let tpdu = TPDU()
     tpdu.textMessage = smsMessage
     tpdu.phoneNumber = phoneNumber
-    let tpduStringTuple = tpdu.encodeTPDUPart()
-
-    return tpduStringTuple
+    return tpdu.encodeTPDUPart()
   }
 }

@@ -63,11 +63,10 @@ extension TPDU {
     // The Ninth Sub-field: SMS Message Body
     let smsBodyS = smsBodylengthE + 1
     let smsBodyE = tpduPart.characters.count - 1
+   
     var smsBody = String()
     
-    if emptySMSMssBody(tpduPart, startIndexOfMssgBody: smsBodyS) {
-      smsBody = ""
-    } else {
+    if !emptySMSMssBody(tpduPart, startIndexOfMssgBody: smsBodyS) {
       smsBody = tpduPart[smsBodyS...smsBodyE]
     }
     
@@ -76,11 +75,7 @@ extension TPDU {
   }
   
   func emptySMSMssBody(tpduPart: String, startIndexOfMssgBody: Int) -> Bool {
-    if tpduPart.characters.count == startIndexOfMssgBody {
-      return true
-    } else {
-      return false
-    }
+    return tpduPart.characters.count == startIndexOfMssgBody ? true : false
   }
   
   func destinationPhoneNumber(tpduPart: String, lengthStringHex: String, typeOfPhoneNumber: String) -> String {
